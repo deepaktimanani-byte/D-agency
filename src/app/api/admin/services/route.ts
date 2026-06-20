@@ -27,7 +27,12 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const slug = body.slug || slugify(body.title);
     const item = await prisma.service.create({
-      data: { ...body, slug, features: body.features ?? [], processSteps: body.processSteps ?? [] },
+      data: {
+        ...body,
+        slug,
+features: body.features ?? [],
+        processSteps: body.processSteps ?? [],
+      },
     });
     return ok(item);
   } catch {

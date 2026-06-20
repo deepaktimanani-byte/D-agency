@@ -35,7 +35,6 @@ model Service {
   title            String
   slug             String           @unique
   shortDescription String
-  description      String
   icon             String?
   coverImage       String?
   categoryId       String?
