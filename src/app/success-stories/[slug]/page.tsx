@@ -220,7 +220,7 @@ export default async function SuccessStoryDetailPage({ params }: PageProps) {
             <h2 className="text-2xl font-extrabold text-heading mb-8">More Success Stories</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((s) => (
-                <StoryCard key={s.id} story={s} />
+                <StoryCard key={s.id} story={s as never} />
               ))}
             </div>
           </div>

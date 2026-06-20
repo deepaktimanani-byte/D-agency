@@ -92,7 +92,7 @@ export default async function ServicesPage({
               {filtered.map((service, i) => (
                 <ServiceCard
                   key={service.id}
-                  service={service}
+                  service={service as never}
                   featured={i === 1 && !activeSlug}
                 />
               ))}
@@ -119,7 +119,7 @@ export default async function ServicesPage({
         </div>
       </section>
 
-      <LeadCaptureCta services={filtered} />
+      <LeadCaptureCta services={filtered as never} />
     </>
   );
 }

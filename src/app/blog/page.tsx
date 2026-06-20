@@ -129,7 +129,7 @@ export default async function BlogPage({
               {/* Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {rest.map((post) => (
-                  <BlogCard key={post.id} post={post} />
+                  <BlogCard key={post.id} post={post as never} />
                 ))}
               </div>
             </>
