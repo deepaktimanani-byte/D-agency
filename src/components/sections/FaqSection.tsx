@@ -27,11 +27,15 @@ const FAQS = [
   },
 ];
 
-export function FaqSection() {
+interface FaqSectionProps {
+  variant?: "white" | "mint";
+}
+
+export function FaqSection({ variant = "mint" }: FaqSectionProps) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="section-pad bg-bg-mint">
+    <section className={`section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-white"}`}>
       <div className="container-main">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left */}

@@ -6,13 +6,14 @@ import Link from "next/link";
 
 interface BlogHighlightsProps {
   posts: BlogPost[];
+  variant?: "white" | "mint";
 }
 
-export function BlogHighlights({ posts }: BlogHighlightsProps) {
+export function BlogHighlights({ posts, variant = "white" }: BlogHighlightsProps) {
   const items = posts.slice(0, 3);
 
   return (
-    <section className="section-pad bg-white">
+    <section className={`section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-white"}`}>
       <div className="container-main">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div>

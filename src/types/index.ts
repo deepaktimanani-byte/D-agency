@@ -40,20 +40,20 @@ export interface Service {
   slug: string;
   shortDescription: string;
   description: string;
-  icon?: string;
-  coverImage?: string;
-  category?: ServiceCategory;
+  icon?: string | null;
+  coverImage?: string | null;
+  category?: ServiceCategory | null;
   features: string[];
   processSteps: { title: string; description: string }[];
   faqs: { question: string; answer: string }[];
-  pricing?: string;
-  timeline?: string;
-  targetAudience?: string;
+  pricing?: string | null;
+  timeline?: string | null;
+  targetAudience?: string | null;
   ctaText: string;
   isFeatured: boolean;
   sortOrder: number;
-  metaTitle?: string;
-  metaDescription?: string;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
   status: string;
   createdAt: string;
 }
@@ -68,8 +68,8 @@ export interface BlogCategory {
 export interface BlogAuthor {
   id: string;
   name: string;
-  photo?: string;
-  designation?: string;
+  photo?: string | null;
+  designation?: string | null;
 }
 
 export interface BlogPost {
@@ -77,15 +77,15 @@ export interface BlogPost {
   title: string;
   slug: string;
   content: string;
-  excerpt?: string;
-  featuredImage?: string;
-  author?: BlogAuthor;
-  category?: BlogCategory;
+  excerpt?: string | null;
+  featuredImage?: string | null;
+  author?: BlogAuthor | null;
+  category?: BlogCategory | null;
   tags: string[];
   readTimeMinutes: number;
-  publishedAt?: string;
-  metaTitle?: string;
-  metaDescription?: string;
+  publishedAt?: string | null;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
   status: string;
   createdAt: string;
 }
@@ -95,7 +95,7 @@ export interface StoryResult {
   id: string;
   metric: string;
   value: string;
-  description?: string;
+  description?: string | null;
   sortOrder: number;
 }
 
@@ -103,22 +103,22 @@ export interface SuccessStory {
   id: string;
   title: string;
   slug: string;
-  clientName?: string;
-  clientLogo?: string;
-  industry?: string;
-  categoryId?: string;
-  category?: { id: string; name: string; slug: string };
+  clientName?: string | null;
+  clientLogo?: string | null;
+  industry?: string | null;
+  categoryId?: string | null;
+  category?: { id: string; name: string; slug: string } | null;
   challenge: string;
   solution: string;
-  testimonial?: string;
-  testimonialAuthorName?: string;
-  testimonialAuthorRole?: string;
+  testimonial?: string | null;
+  testimonialAuthorName?: string | null;
+  testimonialAuthorRole?: string | null;
   gallery: string[];
   isFeatured: boolean;
   results: StoryResult[];
   services: { service: Pick<Service, "id" | "title" | "slug"> }[];
-  metaTitle?: string;
-  metaDescription?: string;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
   status: string;
   createdAt: string;
 }
@@ -127,10 +127,10 @@ export interface SuccessStory {
 export interface Testimonial {
   id: string;
   name: string;
-  company?: string;
-  role?: string;
+  company?: string | null;
+  role?: string | null;
   message: string;
-  avatar?: string;
+  avatar?: string | null;
   rating: number;
   displayPage: string;
   sortOrder: number;
@@ -141,8 +141,8 @@ export interface TeamMember {
   id: string;
   name: string;
   designation: string;
-  bio?: string;
-  photo?: string;
-  linkedinUrl?: string;
+  bio?: string | null;
+  photo?: string | null;
+  linkedinUrl?: string | null;
   sortOrder: number;
 }

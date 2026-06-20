@@ -48,17 +48,38 @@ async function fetchHomeData() {
 export default async function HomePage() {
   const { settings, services, stories, testimonials, posts } = await fetchHomeData();
 
+  const hasStats = [
+    settings.stat_1_value,
+    settings.stat_2_value,
+    settings.stat_3_value,
+    settings.stat_4_value,
+  ].some((v) => v && v.trim() !== "");
+
+  // Compute alternating white/mint for every light section that will actually render.
+  // Dark sections (StatsSection, LeadCaptureCta) are excluded — they're always dark.
+  const visibleLight = [
+    services.length > 0 && "services",
+    "whychooseus",
+    stories.length > 0 && "stories",
+    testimonials.length > 0 && "testimonials",
+    posts.length > 0 && "blog",
+    "faq",
+  ].filter(Boolean) as string[];
+
+  const v = (key: string): "white" | "mint" =>
+    visibleLight.indexOf(key) % 2 === 0 ? "white" : "mint";
+
   return (
     <>
       <HeroSection settings={settings} />
       <TrustBar />
-      <ServicesGrid services={services as never} />
-      <StatsSection settings={settings} />
-      <WhyChooseUs />
-      <SuccessStoriesHighlight stories={stories as never} />
-      <TestimonialsCarousel testimonials={testimonials as never} />
-      <BlogHighlights posts={posts as never} />
-      <FaqSection />
+      {services.length > 0 && <ServicesGrid services={services as never} variant={v("services")} />}
+      {hasStats && <StatsSection settings={settings} />}
+      <WhyChooseUs variant={v("whychooseus")} />
+      {stories.length > 0 && <SuccessStoriesHighlight stories={stories as never} variant={v("stories")} />}
+      {testimonials.length > 0 && <TestimonialsCarousel testimonials={testimonials as never} variant={v("testimonials")} />}
+      {posts.length > 0 && <BlogHighlights posts={posts as never} variant={v("blog")} />}
+      <FaqSection variant={v("faq")} />
       <LeadCaptureCta services={services as never} />
     </>
   );

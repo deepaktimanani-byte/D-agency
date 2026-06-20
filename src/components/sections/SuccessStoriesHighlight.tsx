@@ -6,15 +6,16 @@ import Link from "next/link";
 
 interface SuccessStoriesHighlightProps {
   stories: SuccessStory[];
+  variant?: "white" | "mint";
 }
 
-export function SuccessStoriesHighlight({ stories }: SuccessStoriesHighlightProps) {
+export function SuccessStoriesHighlight({ stories, variant = "white" }: SuccessStoriesHighlightProps) {
   const display = stories.filter((s) => s.isFeatured).slice(0, 3);
   const fallback = stories.slice(0, 3);
   const items = display.length > 0 ? display : fallback;
 
   return (
-    <section className="section-pad bg-white">
+    <section className={`section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-white"}`}>
       <div className="container-main">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div>

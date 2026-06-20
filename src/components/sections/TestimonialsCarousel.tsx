@@ -9,6 +9,7 @@ import { useCallback } from "react";
 
 interface TestimonialsCarouselProps {
   testimonials: Testimonial[];
+  variant?: "white" | "mint";
 }
 
 const PLACEHOLDER: Testimonial[] = [
@@ -18,7 +19,7 @@ const PLACEHOLDER: Testimonial[] = [
   { id: "4", name: "Alex R.", company: "ScaleUp Inc", role: "Director", message: "From web development to compliance, they handled everything. Saved us time and money while delivering exceptional quality.", rating: 5, avatar: "", displayPage: "home", sortOrder: 3 },
 ];
 
-export function TestimonialsCarousel({ testimonials }: TestimonialsCarouselProps) {
+export function TestimonialsCarousel({ testimonials, variant = "mint" }: TestimonialsCarouselProps) {
   const items = testimonials.length > 0 ? testimonials : PLACEHOLDER;
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" }, [
@@ -29,7 +30,7 @@ export function TestimonialsCarousel({ testimonials }: TestimonialsCarouselProps
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   return (
-    <section className="section-pad bg-bg-mint">
+    <section className={`section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-white"}`}>
       <div className="container-main">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div>

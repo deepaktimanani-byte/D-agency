@@ -34,9 +34,13 @@ const DIFFERENTIATORS = [
   },
 ];
 
-export function WhyChooseUs() {
+interface WhyChooseUsProps {
+  variant?: "white" | "mint";
+}
+
+export function WhyChooseUs({ variant = "mint" }: WhyChooseUsProps) {
   return (
-    <section className="section-pad bg-bg-mint">
+    <section className={`section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-white"}`}>
       <div className="container-main">
 
         {/* Centered header */}

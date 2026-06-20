@@ -6,14 +6,15 @@ import Link from "next/link";
 
 interface ServicesGridProps {
   services: Service[];
+  variant?: "white" | "mint";
 }
 
-export function ServicesGrid({ services }: ServicesGridProps) {
+export function ServicesGrid({ services, variant = "white" }: ServicesGridProps) {
   const featured = services.filter((s) => s.isFeatured).slice(0, 6);
   const display = featured.length > 0 ? featured : services.slice(0, 6);
 
   return (
-    <section className="section-pad bg-white">
+    <section className={`section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-white"}`}>
       <div className="container-main">
         {/* Header */}
         <div className="text-center mb-12 max-w-2xl mx-auto">
