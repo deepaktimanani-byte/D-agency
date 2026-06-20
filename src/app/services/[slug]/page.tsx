@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { LeadCaptureCta } from "@/components/sections/LeadCaptureCta";
 import { ServicesGrid } from "@/components/sections/ServicesGrid";
 import { Button } from "@/components/ui/Button";

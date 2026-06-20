@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { LeadForm } from "@/components/ui/LeadForm";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { prisma } from "@/lib/prisma";

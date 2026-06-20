@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { LeadCaptureCta } from "@/components/sections/LeadCaptureCta";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ServiceCard } from "@/components/ui/ServiceCard";

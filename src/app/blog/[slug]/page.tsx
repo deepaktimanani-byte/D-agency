@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { BlogCard } from "@/components/ui/BlogCard";
 import { LeadCaptureCta } from "@/components/sections/LeadCaptureCta";
 import { prisma } from "@/lib/prisma";

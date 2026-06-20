@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { TestimonialsCarousel } from "@/components/sections/TestimonialsCarousel";

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { BlogCard } from "@/components/ui/BlogCard";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { prisma } from "@/lib/prisma";
