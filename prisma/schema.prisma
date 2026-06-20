@@ -1,0 +1,210 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("admin")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("users")
+}
+
+model ServiceCategory {
+  id             String         @id @default(cuid())
+  name           String
+  slug           String         @unique
+  services       Service[]
+  successStories SuccessStory[]
+  blogPosts      BlogPost[]
+
+  @@map("service_categories")
+}
+
+model Service {
+  id               String           @id @default(cuid())
+  title            String
+  slug             String           @unique
+  shortDescription String
+  description      String
+  icon             String?
+  coverImage       String?
+  categoryId       String?
+  category         ServiceCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  features         Json             @default("[]")
+  processSteps     Json             @default("[]")
+  faqs             Json             @default("[]")
+  pricing          String?
+  timeline         String?
+  targetAudience   String?
+  ctaText          String           @default("Get in Touch")
+  isFeatured       Boolean          @default(false)
+  sortOrder        Int              @default(0)
+  metaTitle        String?
+  metaDescription  String?
+  status           String           @default("draft")
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  successStories   SuccessStoryService[]
+
+  @@map("services")
+}
+
+model BlogCategory {
+  id   String @id @default(cuid())
+  name String
+  slug String @unique
+
+  @@map("blog_categories")
+}
+
+model BlogPost {
+  id              String        @id @default(cuid())
+  title           String
+  slug            String        @unique
+  content         String
+  excerpt         String?
+  featuredImage   String?
+  authorId        String?
+  author          TeamMember?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  categoryId      String?
+  category        ServiceCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  tags            Json          @default("[]")
+  readTimeMinutes Int           @default(5)
+  publishedAt     DateTime?
+  metaTitle       String?
+  metaDescription String?
+  status          String        @default("draft")
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@map("blog_posts")
+}
+
+model SuccessStory {
+  id                    String               @id @default(cuid())
+  title                 String
+  slug                  String               @unique
+  clientName            String?
+  clientLogo            String?
+  industry              String?
+  categoryId            String?
+  category              ServiceCategory?     @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  challenge             String
+  solution              String
+  testimonial           String?
+  testimonialAuthorName String?
+  testimonialAuthorRole String?
+  gallery               Json                 @default("[]")
+  isFeatured            Boolean              @default(false)
+  metaTitle             String?
+  metaDescription       String?
+  status                String               @default("draft")
+  createdAt             DateTime             @default(now())
+  updatedAt             DateTime             @updatedAt
+  results               SuccessStoryResult[]
+  services              SuccessStoryService[]
+
+  @@map("success_stories")
+}
+
+model SuccessStoryResult {
+  id          String       @id @default(cuid())
+  storyId     String
+  story       SuccessStory @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  metric      String
+  value       String
+  description String?
+  sortOrder   Int          @default(0)
+
+  @@map("success_story_results")
+}
+
+model SuccessStoryService {
+  storyId   String
+  serviceId String
+  story     SuccessStory @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  service   Service      @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@id([storyId, serviceId])
+  @@map("success_story_services")
+}
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  name        String
+  company     String?
+  role        String?
+  message     String
+  avatar      String?
+  rating      Int      @default(5)
+  displayPage String   @default("home")
+  sortOrder   Int      @default(0)
+  status      String   @default("published")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("testimonials")
+}
+
+model TeamMember {
+  id          String     @id @default(cuid())
+  name        String
+  designation String
+  bio         String?
+  photo       String?
+  linkedinUrl String?
+  sortOrder   Int        @default(0)
+  status      String     @default("published")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  blogPosts   BlogPost[]
+
+  @@map("team_members")
+}
+
+model Enquiry {
+  id              String   @id @default(cuid())
+  name            String
+  email           String
+  phone           String?
+  company         String?
+  serviceInterest String?
+  message         String?
+  sourcePage      String?
+  status          String   @default("new")
+  internalNotes   String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("enquiries")
+}
+
+model SiteSetting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  filename  String
+  url       String
+  publicId  String?
+  mimeType  String
+  size      Int
+  createdAt DateTime @default(now())
+
+  @@map("media")
+}

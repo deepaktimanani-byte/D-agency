@@ -1,26 +1,85 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* ── Fonts ── */
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  /* ── Brand Colors ── */
+  --color-navy:         #1B2D5E;
+  --color-navy-dark:    #0F1F42;
+  --color-navy-light:   #2D4A9A;
+  --color-bg-mint:      #EDF7F3;
+  --color-bg-dark:      #0D1B35;
+  --color-accent-green: #A8E063;
+  --color-accent-teal:  #4DBFA0;
+
+  /* ── Text ── */
+  --color-heading:  #111827;
+  --color-body:     #6B7280;
+  --color-muted:    #9CA3AF;
+
+  /* ── Border ── */
+  --color-border-light: #F3F4F6;
+  --color-border:       #E5E7EB;
+
+  /* ── Radius ── */
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  color: var(--color-heading);
+  background-color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: var(--color-navy-light); border-radius: 3px; }
+
+/* ── Focus ring ── */
+:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Section layout helpers ── */
+.section-pad { padding-top: clamp(4rem, 8vw, 7rem); padding-bottom: clamp(4rem, 8vw, 7rem); }
+.container-main { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: clamp(1rem, 5vw, 2rem); }
+
+/* ── Gradient blobs ── */
+.blob-gradient {
+  background: radial-gradient(ellipse at center, rgba(74, 128, 255, 0.15) 0%, transparent 70%);
+}
+
+/* ── Tiptap editor prose styles ── */
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #aaa;
+  pointer-events: none;
+  height: 0;
+}
+.tiptap h2 { font-size: 1.25rem; font-weight: 700; margin: 1rem 0 0.5rem; }
+.tiptap h3 { font-size: 1.1rem; font-weight: 600; margin: 0.875rem 0 0.4rem; }
+.tiptap p  { margin: 0.5rem 0; line-height: 1.7; }
+.tiptap ul { list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0; }
+.tiptap ol { list-style: decimal; padding-left: 1.5rem; margin: 0.5rem 0; }
+.tiptap li { margin: 0.25rem 0; }
+.tiptap blockquote { border-left: 3px solid #1B2D5E; padding-left: 1rem; color: #666; margin: 1rem 0; }
+.tiptap hr { border: none; border-top: 1px solid #e5e7eb; margin: 1.25rem 0; }
+.tiptap a  { color: #1B2D5E; text-decoration: underline; }
+.tiptap strong { font-weight: 700; }
+.tiptap em { font-style: italic; }
+.tiptap s  { text-decoration: line-through; }
