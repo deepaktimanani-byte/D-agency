@@ -2,6 +2,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { PublicNav } from "@/components/layout/PublicNav";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { prisma } from "@/lib/prisma";
 import type { SiteSettings } from "@/types";
 import type { Metadata } from "next";
@@ -50,12 +51,17 @@ export default async function RootLayout({
   const settings = await getSettings();
 
   return (
-    <html lang="en" className={jakarta.variable}>
+    <html lang="en" className={jakarta.variable} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `(function(){var m={navy:["#1B2D5E","#0F1F42","#2D4A9A","#EDF7F3","#4DBFA0","#0D1B35"],orange:["#E8621A","#C4501A","#F07A3A","#FFF4EF","#F59E0B","#431407"],emerald:["#059669","#047857","#10B981","#ECFDF5","#34D399","#022C22"],purple:["#7C3AED","#6D28D9","#8B5CF6","#F5F3FF","#A78BFA","#1E0A3C"],sunset:["#F97316","#EA6C0A","#FB923C","#FFF7ED","#EC4899","#431407"]};var t=localStorage.getItem('site-theme')||'navy';var v=m[t]||m.navy;var s=document.documentElement.style;s.setProperty('--color-navy',v[0]);s.setProperty('--color-navy-dark',v[1]);s.setProperty('--color-navy-light',v[2]);s.setProperty('--color-bg-mint',v[3]);s.setProperty('--color-accent-teal',v[4]);s.setProperty('--color-bg-dark',v[5]);})();` }} />
+      </head>
       <body className="min-h-screen flex flex-col antialiased">
-        <PublicNav><Header phone={settings.company_phone} /></PublicNav>
-        <main className="flex-1">{children}</main>
-        <PublicNav><Footer settings={settings} /></PublicNav>
-        <PublicNav><WhatsAppButton number={settings.social_whatsapp || settings.company_phone || ""} /></PublicNav>
+        <ThemeProvider>
+          <PublicNav><Header phone={settings.company_phone} /></PublicNav>
+          <main className="flex-1">{children}</main>
+          <PublicNav><Footer settings={settings} /></PublicNav>
+          <PublicNav><WhatsAppButton number={settings.social_whatsapp || settings.company_phone || ""} /></PublicNav>
+        </ThemeProvider>
       </body>
     </html>
   );

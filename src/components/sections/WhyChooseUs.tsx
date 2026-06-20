@@ -38,49 +38,37 @@ export function WhyChooseUs() {
   return (
     <section className="section-pad bg-bg-mint">
       <div className="container-main">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left — visual */}
-          <div className="relative order-2 lg:order-1">
-            <div className="rounded-3xl overflow-hidden bg-navy aspect-[4/3] flex items-center justify-center">
-              <div className="text-center text-white p-10">
-                <p className="text-6xl font-extrabold mb-2">93%</p>
-                <p className="text-white/70 text-lg">Client Satisfaction Rate</p>
-                <p className="text-white/50 text-sm mt-1">Over the last 5 years</p>
+
+        {/* Centered header */}
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <SectionLabel>Why Choose Us</SectionLabel>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-heading mb-4">
+            Finding it Tough to Get Your Business Noticed Online?
+          </h2>
+          <p className="text-body leading-relaxed">
+            Struggling to connect with customers in a crowded digital landscape?
+            We provide the strategy, technology, and execution to make you impossible to ignore.
+          </p>
+        </div>
+
+        {/* Feature cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {DIFFERENTIATORS.map(({ icon: Icon, title, desc }) => (
+            <div
+              key={title}
+              className="group flex flex-col gap-4 p-6 rounded-3xl bg-white border border-gray-100 hover:border-navy/20 hover:shadow-xl transition-all duration-300"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-navy/10 flex items-center justify-center group-hover:bg-navy transition-colors duration-300">
+                <Icon className="w-6 h-6 text-navy group-hover:text-white transition-colors duration-300" />
+              </div>
+              <div>
+                <h4 className="font-bold text-heading text-base mb-2">{title}</h4>
+                <p className="text-body text-sm leading-relaxed">{desc}</p>
               </div>
             </div>
-            {/* Floating card */}
-            <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl p-5 shadow-xl max-w-[200px]">
-              <p className="font-extrabold text-2xl text-navy">68%</p>
-              <p className="text-body text-sm mt-1">Extra growth for your company</p>
-            </div>
-          </div>
-
-          {/* Right — content */}
-          <div className="order-1 lg:order-2">
-            <SectionLabel>Why Choose Us</SectionLabel>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-heading mb-4">
-              Finding it Tough to Get Your Business Noticed Online?
-            </h2>
-            <p className="text-body leading-relaxed mb-8">
-              Struggling to connect with customers in a crowded digital landscape?
-              We provide the strategy, technology, and execution to make you
-              impossible to ignore.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {DIFFERENTIATORS.map(({ icon: Icon, title, desc }) => (
-                <div key={title} className="flex gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-navy/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Icon className="w-5 h-5 text-navy" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-heading text-sm mb-1">{title}</h4>
-                    <p className="text-body text-xs leading-relaxed">{desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
+
       </div>
     </section>
   );
