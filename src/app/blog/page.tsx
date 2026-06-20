@@ -8,7 +8,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Insights, strategies and guides from our team of digital, marketing, and technology experts.",
+    "Insights, strategies and guides from our team of digital, marketing, and technology experts. ",
 };
 
 async function getData(category?: string) {
