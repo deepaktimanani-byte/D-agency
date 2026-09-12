@@ -72,7 +72,7 @@ export default async function ContactPage() {
       </section>
 
       {/* Main */}
-      <section className="section-pad bg-white">
+      <section className="section-pad bg-surface">
         <div className="container-main">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Contact Info */}
@@ -156,7 +156,7 @@ export default async function ContactPage() {
 
             {/* Form */}
             <div className="lg:col-span-2">
-              <div className="p-8 rounded-3xl border border-border-light bg-white shadow-sm">
+              <div className="p-8 rounded-3xl border border-border-light bg-surface shadow-sm">
                 <h2 className="text-xl font-bold text-heading mb-1">Send Us a Message</h2>
                 <p className="text-body text-sm mb-6">
                   Fill in the form and we&apos;ll get back to you within 24 hours.

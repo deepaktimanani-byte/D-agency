@@ -75,13 +75,13 @@ export default async function AboutPage() {
               </p>
             </div>
             <div className="relative">
-              <div className="rounded-3xl bg-navy aspect-video flex items-center justify-center overflow-hidden">
+              <div className="rounded-3xl panel-accent aspect-video flex items-center justify-center overflow-hidden">
                 <div className="text-center text-white p-10">
                   <p className="text-5xl font-extrabold mb-2">5+</p>
                   <p className="text-white/70">Years in Business</p>
                 </div>
               </div>
-              <div className="absolute -bottom-5 -left-5 bg-white rounded-2xl p-5 shadow-xl">
+              <div className="absolute -bottom-5 -left-5 bg-surface rounded-2xl p-5 shadow-xl">
                 <p className="font-extrabold text-2xl text-navy">200+</p>
                 <p className="text-body text-sm">Clients Served</p>
               </div>
@@ -94,7 +94,7 @@ export default async function AboutPage() {
       <StatsSection settings={settings} />
 
       {/* Values */}
-      <section className="section-pad bg-white">
+      <section className="section-pad bg-surface">
         <div className="container-main">
           <div className="text-center mb-12 max-w-xl mx-auto">
             <SectionLabel align="center">What We Stand For</SectionLabel>
@@ -106,7 +106,7 @@ export default async function AboutPage() {
             {VALUES.map(({ icon: Icon, title, desc }) => (
               <div
                 key={title}
-                className="p-6 rounded-2xl border border-border-light bg-white hover:shadow-md transition-shadow flex flex-col gap-4"
+                className="p-6 rounded-2xl border border-border-light bg-surface hover:shadow-md transition-shadow flex flex-col gap-4"
               >
                 <div className="w-12 h-12 rounded-2xl bg-bg-mint flex items-center justify-center">
                   <Icon className="w-6 h-6 text-navy" />

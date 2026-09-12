@@ -1,86 +1,91 @@
+import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { ServiceCard } from "@/components/ui/ServiceCard";
+import { ServiceBentoCard } from "@/components/ui/ServiceBentoCard";
 import type { Service } from "@/types";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 interface ServicesGridProps {
   services: Service[];
   variant?: "white" | "mint";
+  /** Set to false where the page already supplies its own section heading
+      (e.g. the "Related Services" block on a service detail page). */
+  showHeader?: boolean;
+  /** Drop the section's own padding when embedded inside another section. */
+  bare?: boolean;
 }
 
-export function ServicesGrid({ services, variant = "white" }: ServicesGridProps) {
-  const featured = services.filter((s) => s.isFeatured).slice(0, 6);
-  const display = featured.length > 0 ? featured : services.slice(0, 6);
+export function ServicesGrid({
+  services,
+  variant = "white",
+  showHeader = true,
+  bare = false,
+}: ServicesGridProps) {
+  const featured = services.filter((s) => s.isFeatured).slice(0, 5);
+  const display = featured.length > 0 ? featured : services.slice(0, 5);
+
+  // Nothing published yet — render nothing rather than inventing services.
+  if (display.length === 0) return null;
 
   return (
-    <section className={`section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-white"}`}>
-      <div className="container-main">
-        {/* Header */}
-        <div className="text-center mb-12 max-w-2xl mx-auto">
-          <SectionLabel align="center">What We Do</SectionLabel>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-heading mb-4">
-            What We are Doing
-          </h2>
-          <p className="text-body leading-relaxed">
-            From strategy to execution — we cover every dimension of your
-            business growth across digital, tech, marketing, and operations.
-          </p>
-        </div>
+    <section
+      className={
+        bare
+          ? ""
+          : `section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-surface"}`
+      }
+    >
+      <div className={bare ? "" : "container-main"}>
+        {/* Header — editorial split, heading left / action right */}
+        {showHeader && (
+        <div className="mb-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <Reveal className="max-w-2xl">
+            <SectionLabel>What We Do</SectionLabel>
+            <h2 className="display-lg font-extrabold text-heading">
+              One partner.
+              <br />
+              Every discipline you need.
+            </h2>
+          </Reveal>
 
-        {/* Grid */}
-        {display.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {display.map((service, i) => (
-              <ServiceCard key={service.id} service={service} featured={i === 1} />
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {PLACEHOLDER_SERVICES.map((s, i) => (
-              <div
-                key={s.title}
-                className={`p-6 rounded-2xl border border-border-light flex flex-col gap-4 ${
-                  i === 1 ? "bg-navy text-white" : "bg-white"
-                }`}
-              >
-                <div
-                  className={`w-14 h-14 rounded-2xl flex items-center justify-center ${
-                    i === 1 ? "bg-white/20" : "bg-bg-mint"
-                  }`}
-                >
-                  <div className="w-7 h-7 rounded-lg bg-accent-teal/40" />
-                </div>
-                <h3 className={`font-bold text-lg ${i === 1 ? "text-white" : "text-heading"}`}>
-                  {s.title}
-                </h3>
-                <p className={`text-sm leading-relaxed ${i === 1 ? "text-white/70" : "text-body"}`}>
-                  {s.desc}
-                </p>
-                <span className={`text-sm font-semibold ${i === 1 ? "text-white/90" : "text-navy"}`}>
-                  Get in Touch →
-                </span>
-              </div>
-            ))}
-          </div>
+          <Reveal delay={0.15} className="max-w-md">
+            <p className="leading-relaxed text-body">
+              Most companies juggle five vendors who blame each other. We run
+              strategy, build, marketing and operations under one roof — and one
+              point of accountability.
+            </p>
+          </Reveal>
+        </div>
         )}
 
-        {/* CTA */}
-        <div className="text-center mt-10">
-          <Button asChild variant="outline" size="lg">
-            <Link href="/services">View All Services</Link>
-          </Button>
+        {/* Bento grid — first tile anchors the layout */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:auto-rows-[minmax(0,1fr)]">
+          {display.map((service, i) => (
+            <Reveal
+              key={service.id}
+              delay={Math.min(i, 4) * 0.08}
+              className={i === 0 ? "sm:col-span-2 lg:row-span-2 flex" : "flex"}
+            >
+              <ServiceBentoCard
+                service={service}
+                size={i === 0 ? "hero" : "default"}
+                className="w-full"
+              />
+            </Reveal>
+          ))}
         </div>
+
+        {/* CTA */}
+        <Reveal delay={0.1} className="mt-12 text-center">
+          <Button asChild variant="outline" size="lg" className="group">
+            <Link href="/services">
+              View All Services
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </Button>
+        </Reveal>
       </div>
     </section>
   );
 }
-
-const PLACEHOLDER_SERVICES = [
-  { title: "Reputation Management", desc: "Protect and enhance your online reputation. We manage and improve how your business is perceived online." },
-  { title: "Advertising Campaigns", desc: "Maximize ROI with strategic PPC campaigns. We fine-tune your ads for the best results." },
-  { title: "Web Design & Development", desc: "Create a stunning, user-friendly website. Our designs are tailored to your company's needs." },
-  { title: "SEO & Content Strategy", desc: "Rank higher, attract more leads. Data-driven SEO strategies that deliver measurable results." },
-  { title: "Brand Identity", desc: "Build a brand that people remember. From logo to voice — we craft cohesive brand experiences." },
-  { title: "Business Consulting", desc: "Strategic guidance for sustainable growth. We align your operations with your long-term vision." },
-];

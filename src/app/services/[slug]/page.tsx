@@ -53,19 +53,19 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               {(svc.pricing || svc.timeline || svc.targetAudience) && (
                 <div className="flex flex-wrap gap-3 mb-6">
                   {svc.pricing && (
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-border-light text-sm">
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-border-light text-sm">
                       <DollarSign className="w-4 h-4 text-accent-teal" />
                       <span className="font-semibold text-heading">{svc.pricing}</span>
                     </div>
                   )}
                   {svc.timeline && (
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-border-light text-sm">
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-border-light text-sm">
                       <Clock className="w-4 h-4 text-accent-teal" />
                       <span className="font-semibold text-heading">{svc.timeline}</span>
                     </div>
                   )}
                   {svc.targetAudience && (
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-border-light text-sm">
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-border-light text-sm">
                       <Users className="w-4 h-4 text-accent-teal" />
                       <span className="font-semibold text-heading">{svc.targetAudience}</span>
                     </div>
@@ -82,7 +82,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 </Button>
               </div>
             </div>
-            <div className="rounded-3xl overflow-hidden aspect-video bg-navy">
+            <div className="rounded-3xl overflow-hidden aspect-video panel-accent">
               {svc.coverImage ? (
                 <Image src={svc.coverImage} alt={svc.title} width={640} height={360} className="w-full h-full object-cover" />
               ) : (
@@ -99,7 +99,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       </section>
 
       {/* Main content + sidebar */}
-      <section className="section-pad bg-white">
+      <section className="section-pad bg-surface">
         <div className="container-main">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
@@ -176,7 +176,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 </div>
               )}
 
-              <div className="p-6 rounded-2xl bg-navy text-white">
+              <div className="p-6 rounded-2xl panel-accent text-white">
                 <h3 className="font-bold text-lg mb-2">Ready to get started?</h3>
                 <p className="text-white/70 text-sm mb-5 leading-relaxed">
                   Book a free consultation and let&apos;s talk about how {svc.title} can work for your business.
@@ -194,7 +194,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         <section className="section-pad bg-bg-mint">
           <div className="container-main">
             <h2 className="text-2xl font-extrabold text-heading mb-8">Related Services</h2>
-            <ServicesGrid services={related} />
+            <ServicesGrid services={related} showHeader={false} bare />
           </div>
         </section>
       )}

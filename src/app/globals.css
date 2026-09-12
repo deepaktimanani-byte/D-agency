@@ -5,28 +5,82 @@
   /* ── Fonts ── */
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 
-  /* ── Brand Colors ── */
-  --color-navy:         #1B2D5E;
-  --color-navy-dark:    #0F1F42;
-  --color-navy-light:   #2D4A9A;
-  --color-bg-mint:      #EDF7F3;
-  --color-bg-dark:      #0D1B35;
-  --color-accent-green: #A8E063;
-  --color-accent-teal:  #4DBFA0;
+  /* ══════════════════════════════════════════════════════════════
+     BRAND PALETTE — sampled straight from the Fix Your Gap logo.
+     The mark runs deep plum #37001B -> magenta #D71B7E -> pink #F066B0,
+     so the whole UI is that one gradient, tonally.
 
-  /* ── Text ── */
-  --color-heading:  #111827;
-  --color-body:     #6B7280;
-  --color-muted:    #9CA3AF;
+     Token NAMES are historical (navy / mint / teal) so existing markup
+     keeps working; only their VALUES carry the brand. Admin opts back
+     out to a light scheme via .admin-surface below.
+     ══════════════════════════════════════════════════════════════ */
+
+  /* Surfaces — near-black, warmed with a plum undertone */
+  --color-surface:    #0A0308;
+  --color-surface-2:  #140611;
+  --color-surface-3:  #1E0A19;
+
+  /* Brand — "navy" is the magenta primary */
+  --color-navy:         #D71B7E;
+  --color-navy-dark:    #B7046A;
+  --color-navy-light:   #E8449A;
+
+  /* "bg-mint" is the elevated band; "bg-dark" the deepest ground */
+  --color-bg-mint:      #140611;
+  --color-bg-dark:      #0A0308;
+
+  /* Accent — warm amber. Deliberately far brighter than the magenta so the
+     CTA is always the lightest thing on screen. Accent use only: buttons,
+     eyebrow labels, headline tails. Never large filled areas. */
+  --color-accent-teal:  #FFB020;
+  --color-accent-green: #FFD166;
+  /* Amber is too bright for white text — this is its foreground. */
+  --color-on-accent:    #2A1206;
+
+  /* ── Text — warm whites, so nothing reads cold against the plum ── */
+  --color-heading:  #FBF3F8;
+  --color-body:     #B09AA8;
+  --color-muted:    #7C6672;
 
   /* ── Border ── */
-  --color-border-light: #F3F4F6;
-  --color-border:       #E5E7EB;
+  --color-border-light: #24101E;
+  --color-border:       #381B2D;
 
   /* ── Radius ── */
   --radius-2xl: 1rem;
   --radius-3xl: 1.5rem;
   --radius-4xl: 2rem;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Admin panel stays light. Nested layouts inherit these instead,
+   so every shared component (Button, inputs, cards) flips back
+   without a single admin file changing.
+   ══════════════════════════════════════════════════════════════ */
+.admin-surface {
+  --color-surface:    #ffffff;
+  --color-surface-2:  #FAF7F9;
+  --color-surface-3:  #ffffff;
+
+  --color-navy:         #B7046A;
+  --color-navy-dark:    #8A0350;
+  --color-navy-light:   #D71B7E;
+  --color-bg-mint:      #FDF2F8;
+  --color-bg-dark:      #37001B;
+  --color-accent-teal:  #D71B7E;
+  --color-accent-green: #F066B0;
+  /* Admin keeps a magenta accent (amber on white is unreadable), so its
+     foreground stays white. */
+  --color-on-accent:    #ffffff;
+
+  --color-heading:  #1F1119;
+  --color-body:     #6B5A63;
+  --color-muted:    #9C8B95;
+
+  --color-border-light: #F3EAEF;
+  --color-border:       #E6D9E0;
+
+  color: var(--color-heading);
 }
 
 /* ── Base ── */
@@ -37,19 +91,19 @@ html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-sans);
   color: var(--color-heading);
-  background-color: #ffffff;
+  background-color: var(--color-surface);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #f1f5f9; }
-::-webkit-scrollbar-thumb { background: var(--color-navy-light); border-radius: 3px; }
+::-webkit-scrollbar-track { background: var(--color-surface-2); }
+::-webkit-scrollbar-thumb { background: var(--color-navy); border-radius: 3px; }
 
 /* ── Focus ring ── */
 :focus-visible {
-  outline: 2px solid var(--color-navy);
+  outline: 2px solid var(--color-accent-teal);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -83,3 +137,295 @@ body {
 .tiptap strong { font-weight: 700; }
 .tiptap em { font-style: italic; }
 .tiptap s  { text-decoration: line-through; }
+
+/* ═══════════════════════════════════════════════════════════════
+   UI 2.0 — premium visual layer (SeedB2B structure + Camlion mood)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Dark surface: deep gradient, used by hero + final CTA ── */
+.surface-dark {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, color-mix(in srgb, var(--color-navy-light) 45%, transparent) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, color-mix(in srgb, var(--color-accent-teal) 22%, transparent) 0%, transparent 65%),
+    linear-gradient(180deg, var(--color-bg-dark) 0%, color-mix(in srgb, var(--color-bg-dark) 88%, #000) 100%);
+}
+
+/* ── Faint technical grid overlay ── */
+.grid-overlay {
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 30%, transparent 100%);
+}
+
+/* ── Gradient text ── */
+.text-gradient {
+  background: linear-gradient(100deg,
+    var(--color-accent-teal) 0%,
+    color-mix(in srgb, var(--color-accent-teal) 55%, #ffffff) 45%,
+    #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Accent panel: what large `bg-navy` blocks became once the palette
+       went vivid. A flat violet slab shouts; this glows instead. ── */
+.panel-accent {
+  position: relative;
+  background:
+    radial-gradient(ellipse 110% 130% at 0% 0%, color-mix(in srgb, var(--color-navy) 38%, transparent) 0%, transparent 68%),
+    radial-gradient(ellipse 90% 110% at 100% 100%, color-mix(in srgb, var(--color-accent-teal) 22%, transparent) 0%, transparent 70%),
+    var(--color-surface-3);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+/* ── Glass card on dark ── */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* ── Infinite logo marquee ── */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x 38s linear infinite;
+}
+.marquee-mask:hover .marquee-track { animation-play-state: paused; }
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* ── Slow ambient float ── */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+.float-slow { animation: float-y 7s ease-in-out infinite; }
+
+/* ── Fluid display type scale (Camlion-style impact) ── */
+.display-xl { font-size: clamp(2.75rem, 7.5vw, 6rem);  line-height: 0.97; letter-spacing: -0.035em; }
+.display-lg { font-size: clamp(2.25rem, 5.2vw, 4rem);  line-height: 1.03; letter-spacing: -0.03em; }
+
+/* ── Respect reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track, .float-slow { animation: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Magnifier cursor
+   Over text it really magnifies: the hovered element is cloned into
+   .cursor-lens-zoom, scaled about the lens centre and clipped to the
+   circle. Elsewhere the glass just brightens what is underneath.
+   Size is driven from JS, so no width/height transitions here —
+   the magnification maths needs the exact current size each frame.
+   ═══════════════════════════════════════════════════════════════ */
+
+html.has-custom-cursor,
+html.has-custom-cursor * { cursor: none; }
+/* Typing and selecting genuinely need the native caret. */
+html.has-custom-cursor input,
+html.has-custom-cursor textarea,
+html.has-custom-cursor select,
+html.has-custom-cursor [contenteditable="true"] { cursor: auto; }
+
+.cursor-lens,
+.cursor-pill {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cursor-lens {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.cursor-lens[data-visible="true"] { opacity: 1; }
+.cursor-lens[data-state="hidden"] { opacity: 0 !important; }
+
+/* The glass itself — clips the magnified clone to a circle. */
+.cursor-lens-glass {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  overflow: hidden;
+  border: 2px solid var(--color-accent-teal);
+  border-width: 2px; /* replaced from JS, proportional to lens size */
+  background: color-mix(in srgb, #ffffff 5%, transparent);
+  backdrop-filter: brightness(1.45) saturate(1.35);
+  -webkit-backdrop-filter: brightness(1.45) saturate(1.35);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 0 16px color-mix(in srgb, var(--color-accent-teal) 50%, transparent),
+    inset 0 0 14px color-mix(in srgb, #ffffff 12%, transparent);
+  transition: box-shadow 0.26s ease;
+}
+
+/* While magnifying, the clone is opaque — drop the glass tint so text stays crisp. */
+.cursor-lens-glass[data-zoom="true"] {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.45),
+    0 0 24px color-mix(in srgb, var(--color-accent-teal) 60%, transparent);
+}
+
+/* The cloned, scaled text. Positioned from JS every frame. */
+.cursor-lens-zoom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+/* The handle — a sibling of the glass, so the circle's clip never cuts it.
+   Anchored at the lens centre and pushed out along 45deg to exactly the rim;
+   width, thickness and offset are all set from JS so it scales with the lens. */
+.cursor-lens-handle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 9999px;
+  background: var(--color-accent-teal);
+  transform-origin: 0 50%;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-accent-teal) 55%, transparent);
+}
+
+/* ── The action pill, offset clear of the lens ── */
+.cursor-pill {
+  margin-left: 34px;
+  margin-top: 24px;
+  padding: 0 14px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border-radius: 9999px;
+  background: var(--color-navy);
+  color: #fff;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.cursor-pill[data-state="label"] { opacity: 1; }
+
+/* Touch devices and reduced-motion users never see any of this. */
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-lens, .cursor-pill { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Hero aura — drifting brand colour fields + a slow light sweep
+   Replaces the orbiting-icon version; abstract, so it never
+   competes with the headline for attention.
+   ═══════════════════════════════════════════════════════════════ */
+
+.hero-aura {
+  position: absolute;
+  inset: -20% -10%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-aura-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  will-change: transform;
+}
+
+.hero-aura-blob--magenta {
+  width: 46vw;
+  height: 46vw;
+  min-width: 420px;
+  min-height: 420px;
+  top: -6%;
+  left: 8%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-navy) 52%, transparent) 0%, transparent 68%);
+  animation: aura-drift-a 26s ease-in-out infinite;
+}
+
+.hero-aura-blob--plum {
+  width: 52vw;
+  height: 52vw;
+  min-width: 460px;
+  min-height: 460px;
+  bottom: -18%;
+  right: 4%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-navy-dark) 58%, transparent) 0%, transparent 70%);
+  animation: aura-drift-b 34s ease-in-out infinite;
+}
+
+/* Amber stays small — accent only, never a large filled area. */
+.hero-aura-blob--amber {
+  width: 22vw;
+  height: 22vw;
+  min-width: 220px;
+  min-height: 220px;
+  top: 46%;
+  left: 62%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-accent-teal) 26%, transparent) 0%, transparent 70%);
+  animation: aura-drift-c 30s ease-in-out infinite;
+}
+
+/* A wide, very soft band of light travelling across the section. */
+.hero-aura-sweep {
+  position: absolute;
+  top: -40%;
+  left: -60%;
+  width: 55%;
+  height: 180%;
+  transform: rotate(14deg);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--color-accent-teal) 7%, transparent) 45%,
+    color-mix(in srgb, #ffffff 5%, transparent) 55%,
+    transparent 100%
+  );
+  filter: blur(42px);
+  animation: aura-sweep 17s ease-in-out infinite;
+}
+
+@keyframes aura-drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(7%, 9%, 0) scale(1.14); }
+}
+@keyframes aura-drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.06); }
+  50%      { transform: translate3d(-9%, -7%, 0) scale(0.92); }
+}
+@keyframes aura-drift-c {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(0.95); }
+  50%      { transform: translate3d(-14%, 12%, 0) scale(1.22); }
+}
+@keyframes aura-sweep {
+  0%       { transform: translateX(0) rotate(14deg); opacity: 0; }
+  15%      { opacity: 1; }
+  85%      { opacity: 1; }
+  100%     { transform: translateX(320%) rotate(14deg); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-aura-blob, .hero-aura-sweep { animation: none !important; }
+  .hero-aura-sweep { opacity: 0.5; }
+}

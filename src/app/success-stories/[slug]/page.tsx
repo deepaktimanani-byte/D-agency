@@ -42,7 +42,7 @@ export default async function SuccessStoryDetailPage({ params }: PageProps) {
   return (
     <>
       {/* Hero */}
-      <section className="section-pad bg-navy text-white">
+      <section className="section-pad surface-dark text-white">
         <div className="container-main">
           <div className="max-w-3xl mx-auto">
             <div className="flex items-center gap-3 mb-5">
@@ -92,7 +92,7 @@ export default async function SuccessStoryDetailPage({ params }: PageProps) {
       )}
 
       {/* Body */}
-      <section className="section-pad bg-white">
+      <section className="section-pad bg-surface">
         <div className="container-main">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Main */}
@@ -144,7 +144,7 @@ export default async function SuccessStoryDetailPage({ params }: PageProps) {
             <div className="flex flex-col gap-6">
               {/* Client card */}
               {(story.clientLogo || story.clientName) && (
-                <div className="p-6 rounded-2xl border border-border-light bg-white flex flex-col items-center gap-3">
+                <div className="p-6 rounded-2xl border border-border-light bg-surface flex flex-col items-center gap-3">
                   {story.clientLogo && (
                     <div className="w-full h-24 relative flex items-center justify-center">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -184,7 +184,7 @@ export default async function SuccessStoryDetailPage({ params }: PageProps) {
 
               {/* Services used */}
               {story.services?.length > 0 && (
-                <div className="p-6 rounded-2xl border border-border-light bg-white">
+                <div className="p-6 rounded-2xl border border-border-light bg-surface">
                   <h3 className="font-bold text-heading mb-4">Services Used</h3>
                   <div className="flex flex-wrap gap-2">
                     {story.services.map(({ service }) => (
@@ -201,7 +201,7 @@ export default async function SuccessStoryDetailPage({ params }: PageProps) {
               )}
 
               {/* CTA */}
-              <div className="p-6 rounded-2xl bg-navy text-white">
+              <div className="p-6 rounded-2xl panel-accent text-white">
                 <h3 className="font-bold text-lg mb-2">Want similar results?</h3>
                 <p className="text-white/70 text-sm mb-5 leading-relaxed">
                   Let&apos;s talk about your goals and build a plan together.

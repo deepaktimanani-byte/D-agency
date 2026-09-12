@@ -13,7 +13,7 @@ export function BlogHighlights({ posts, variant = "white" }: BlogHighlightsProps
   const items = posts.slice(0, 3);
 
   return (
-    <section className={`section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-white"}`}>
+    <section className={`section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-surface"}`}>
       <div className="container-main">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div>
@@ -34,7 +34,7 @@ export function BlogHighlights({ posts, variant = "white" }: BlogHighlightsProps
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {PLACEHOLDER_POSTS.map((p) => (
-              <div key={p.title} className="rounded-2xl border border-border-light bg-white overflow-hidden">
+              <div key={p.title} className="rounded-2xl border border-border-light bg-surface overflow-hidden">
                 <div className="h-44 bg-gradient-to-br from-bg-mint to-accent-teal/10" />
                 <div className="p-5">
                   <span className="text-xs font-semibold text-accent-teal bg-accent-teal/10 px-3 py-1 rounded-full">{p.category}</span>

@@ -89,7 +89,7 @@ export default function AdminTestimonialsPage() {
           {loading ? <div className="flex items-center justify-center py-10"><Loader2 className="w-5 h-5 animate-spin text-navy" /></div>
             : items.length === 0 ? <p className="text-body text-sm text-center py-10">No testimonials yet.</p>
             : items.map((t) => (
-              <div key={t.id} className="bg-white rounded-2xl border border-gray-100 p-5 flex items-start justify-between gap-4">
+              <div key={t.id} className="bg-surface rounded-2xl border border-gray-100 p-5 flex items-start justify-between gap-4">
                 <div className="flex flex-col gap-1.5 flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <p className="font-semibold text-heading text-sm">{t.name}</p>
@@ -121,7 +121,7 @@ export default function AdminTestimonialsPage() {
       {/* Form panel */}
       {editing && (
         <div className="w-80 flex-shrink-0">
-          <form onSubmit={save} className="bg-white rounded-2xl border border-gray-100 p-5 flex flex-col gap-4 sticky top-6">
+          <form onSubmit={save} className="bg-surface rounded-2xl border border-gray-100 p-5 flex flex-col gap-4 sticky top-6">
             <div className="flex items-center justify-between">
               <h3 className="font-bold text-heading text-sm">{editing === "new" ? "New Testimonial" : "Edit"}</h3>
               <button type="button" onClick={() => setEditing(null)} className="text-muted hover:text-heading"><X className="w-4 h-4" /></button>

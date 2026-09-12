@@ -15,7 +15,7 @@ export function SuccessStoriesHighlight({ stories, variant = "white" }: SuccessS
   const items = display.length > 0 ? display : fallback;
 
   return (
-    <section className={`section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-white"}`}>
+    <section className={`section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-surface"}`}>
       <div className="container-main">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div>
@@ -38,7 +38,7 @@ export function SuccessStoriesHighlight({ stories, variant = "white" }: SuccessS
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {PLACEHOLDER_STORIES.map((s) => (
-              <div key={s.title} className="rounded-2xl border border-border-light overflow-hidden bg-white">
+              <div key={s.title} className="rounded-2xl border border-border-light overflow-hidden bg-surface">
                 <div className="h-48 bg-gradient-to-br from-navy/10 to-accent-teal/10 flex items-center justify-center">
                   <div className="text-center">
                     <p className="font-extrabold text-3xl text-navy">{s.result}</p>

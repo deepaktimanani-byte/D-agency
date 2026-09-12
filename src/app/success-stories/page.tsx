@@ -49,7 +49,7 @@ export default async function SuccessStoriesPage({
   return (
     <>
       {/* Hero */}
-      <section className="section-pad bg-navy text-white">
+      <section className="section-pad surface-dark text-white">
         <div className="container-main text-center max-w-2xl mx-auto">
           <SectionLabel align="center">
             <span className="text-accent-teal">Our Work</span>
@@ -62,7 +62,7 @@ export default async function SuccessStoriesPage({
       </section>
 
       {/* Combined filter bar */}
-      <section className="sticky top-16 z-10 bg-white border-b border-border-light">
+      <section className="sticky top-16 z-10 bg-surface border-b border-border-light">
         <div className="container-main">
           <div className="flex items-center gap-2 overflow-x-auto py-3 scrollbar-hide">
             {/* All */}
@@ -103,7 +103,7 @@ export default async function SuccessStoriesPage({
                 href={`/success-stories?category=${encodeURIComponent(cat.name)}`}
                 className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${
                   activeFilter?.type === "category" && activeFilter.value === cat.name
-                    ? "bg-accent-teal text-white"
+                    ? "bg-accent-teal text-on-accent"
                     : "text-body hover:text-heading hover:bg-bg-mint"
                 }`}
               >
@@ -115,7 +115,7 @@ export default async function SuccessStoriesPage({
       </section>
 
       {/* Grid */}
-      <section className="section-pad bg-white">
+      <section className="section-pad bg-surface">
         <div className="container-main">
           {stories.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

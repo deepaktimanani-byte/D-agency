@@ -40,7 +40,7 @@ interface WhyChooseUsProps {
 
 export function WhyChooseUs({ variant = "mint" }: WhyChooseUsProps) {
   return (
-    <section className={`section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-white"}`}>
+    <section className={`section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-surface"}`}>
       <div className="container-main">
 
         {/* Centered header */}
@@ -60,7 +60,7 @@ export function WhyChooseUs({ variant = "mint" }: WhyChooseUsProps) {
           {DIFFERENTIATORS.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}
-              className="group flex flex-col gap-4 p-6 rounded-3xl bg-white border border-gray-100 hover:border-navy/20 hover:shadow-xl transition-all duration-300"
+              className="group flex flex-col gap-4 p-6 rounded-3xl bg-surface-3 border border-border-light hover:border-navy/40 hover:shadow-xl hover:shadow-navy/10 transition-all duration-300"
             >
               <div className="w-12 h-12 rounded-2xl bg-navy/10 flex items-center justify-center group-hover:bg-navy transition-colors duration-300">
                 <Icon className="w-6 h-6 text-navy group-hover:text-white transition-colors duration-300" />

@@ -51,7 +51,7 @@ export default function EnquiriesPage() {
       {/* List */}
       <div className="flex-1 flex flex-col gap-4 min-w-0">
         {/* Filter tabs */}
-        <div className="flex items-center gap-2 bg-white rounded-xl border border-gray-100 p-1 w-fit">
+        <div className="flex items-center gap-2 bg-surface rounded-xl border border-gray-100 p-1 w-fit">
           {STATUSES.map((s) => (
             <button
               key={s}
@@ -67,7 +67,7 @@ export default function EnquiriesPage() {
         </div>
 
         {/* Table */}
-        <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden flex-1">
+        <div className="bg-surface rounded-2xl border border-gray-100 overflow-hidden flex-1">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-gray-100 bg-gray-50">
@@ -130,7 +130,7 @@ export default function EnquiriesPage() {
 
       {/* Detail panel */}
       {selected && (
-        <div className="w-72 flex-shrink-0 bg-white rounded-2xl border border-gray-100 p-5 flex flex-col gap-4 h-fit sticky top-0">
+        <div className="w-72 flex-shrink-0 bg-surface rounded-2xl border border-gray-100 p-5 flex flex-col gap-4 h-fit sticky top-0">
           <div className="flex items-start justify-between">
             <h3 className="font-bold text-heading">{selected.name}</h3>
             <button onClick={() => setSelected(null)} className="text-muted hover:text-heading text-lg leading-none">×</button>

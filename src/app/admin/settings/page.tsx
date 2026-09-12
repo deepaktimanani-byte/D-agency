@@ -83,7 +83,7 @@ export default function SettingsPage() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6 max-w-2xl">
       {FIELDS.map(({ section, fields }) => (
-        <div key={section} className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+        <div key={section} className="bg-surface rounded-2xl border border-gray-100 overflow-hidden">
           <div className="px-5 py-3.5 border-b border-gray-100 bg-gray-50">
             <h2 className="font-bold text-heading text-sm">{section}</h2>
           </div>
@@ -104,7 +104,7 @@ export default function SettingsPage() {
       ))}
 
       {/* Sticky save bar */}
-      <div className="sticky bottom-0 bg-white border-t border-gray-200 -mx-6 px-6 py-3 flex items-center justify-between">
+      <div className="sticky bottom-0 bg-surface border-t border-gray-200 -mx-6 px-6 py-3 flex items-center justify-between">
         {saved ? (
           <span className="flex items-center gap-2 text-green-600 text-sm font-semibold">
             <CheckCircle2 className="w-4 h-4" /> Settings saved

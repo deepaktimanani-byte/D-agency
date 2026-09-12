@@ -45,7 +45,7 @@ export function AdminSidebar() {
   return (
     <aside
       className={cn(
-        "relative flex flex-col bg-white border-r border-gray-200 h-screen sticky top-0 transition-all duration-300",
+        "relative flex flex-col bg-surface border-r border-gray-200 h-screen sticky top-0 transition-all duration-300",
         collapsed ? "w-16" : "w-60"
       )}
     >

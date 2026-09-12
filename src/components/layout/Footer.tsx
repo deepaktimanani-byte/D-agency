@@ -141,7 +141,7 @@ export function Footer({ settings }: FooterProps) {
           </p>
           <Link
             href="/contact-us"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-accent-teal text-white font-semibold text-sm hover:opacity-90 transition-opacity"
+            className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-accent-teal text-on-accent font-semibold text-sm hover:opacity-90 transition-opacity"
           >
             Book Free Call
           </Link>

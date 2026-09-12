@@ -36,7 +36,7 @@ export default function AdminStoriesPage() {
           <Plus className="w-4 h-4" /> Add Story
         </Link>
       </div>
-      <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-gray-100 overflow-hidden">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-100 bg-gray-50">

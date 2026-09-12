@@ -134,7 +134,7 @@ export default function ServiceEditPage() {
   if (loading) return <div className="flex-1 flex items-center justify-center"><Loader2 className="w-6 h-6 animate-spin text-navy" /></div>;
 
   const inp = "w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm text-heading placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy transition";
-  const sectionCard = "bg-white rounded-2xl border border-gray-100 p-5 flex flex-col gap-4";
+  const sectionCard = "bg-surface rounded-2xl border border-gray-100 p-5 flex flex-col gap-4";
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">

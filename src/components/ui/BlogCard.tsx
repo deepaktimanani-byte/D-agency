@@ -14,9 +14,10 @@ interface BlogCardProps {
 export function BlogCard({ post, className }: BlogCardProps) {
   return (
     <Link
+      data-cursor-label="Read More"
       href={`/blog/${post.slug}`}
       className={cn(
-        "group flex flex-col bg-white rounded-2xl border border-border-light overflow-hidden",
+        "group flex flex-col bg-surface rounded-2xl border border-border-light overflow-hidden",
         "hover:shadow-lg hover:-translate-y-1 transition-all duration-300",
         className
       )}

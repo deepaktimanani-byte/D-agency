@@ -19,7 +19,7 @@ const COLOR_MAP = {
 
 export function StatCard({ label, value, icon: Icon, trend, trendUp, color = "navy" }: StatCardProps) {
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 p-5 flex flex-col gap-4">
+    <div className="bg-surface rounded-2xl border border-gray-100 p-5 flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center", COLOR_MAP[color])}>
           <Icon className="w-5 h-5" />

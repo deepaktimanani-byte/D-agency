@@ -7,24 +7,29 @@ interface AnimatedCounterProps {
 }
 
 export function AnimatedCounter({ value, className }: AnimatedCounterProps) {
-  const [displayed, setDisplayed] = useState("0");
+  const [displayed, setDisplayed] = useState(value);
   const ref = useRef<HTMLSpanElement>(null);
   const hasAnimated = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated.current) {
           hasAnimated.current = true;
           // Extract numeric part
           const match = value.match(/[\d.]+/);
-          if (!match) { setDisplayed(value); return; }
+          if (!match) return; // Non-numeric stat — leave the literal text alone.
           const end = parseFloat(match[0]);
           const prefix = value.slice(0, value.indexOf(match[0]));
           const suffix = value.slice(value.indexOf(match[0]) + match[0].length);
           const duration = 1800;
+          setDisplayed(`${prefix}0${suffix}`);
           const start = performance.now();
           const step = (now: number) => {
             const progress = Math.min((now - start) / duration, 1);

@@ -16,9 +16,10 @@ export function StoryCard({ story, className }: StoryCardProps) {
 
   return (
     <Link
+      data-cursor-label="Read Story"
       href={`/success-stories/${story.slug}`}
       className={cn(
-        "group flex flex-col bg-white rounded-2xl border border-border-light overflow-hidden",
+        "group flex flex-col bg-surface rounded-2xl border border-border-light overflow-hidden",
         "hover:shadow-xl hover:-translate-y-1 transition-all duration-300",
         className
       )}
@@ -34,7 +35,7 @@ export function StoryCard({ story, className }: StoryCardProps) {
           />
         ) : (
           /* No photo — logo fills the banner on a light bg */
-          <div className="absolute inset-0 bg-gray-50 flex items-center justify-center px-10 py-8">
+          <div className="absolute inset-0 bg-surface-3 flex items-center justify-center px-10 py-8">
             {story.clientLogo ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -57,7 +58,7 @@ export function StoryCard({ story, className }: StoryCardProps) {
 
         {/* Top result chip */}
         {topResult && (
-          <div className="absolute bottom-4 right-4 bg-white rounded-xl px-3 py-2 shadow-lg flex items-center gap-2">
+          <div className="absolute bottom-4 right-4 bg-surface rounded-xl px-3 py-2 shadow-lg flex items-center gap-2">
             <TrendingUp className="w-4 h-4 text-accent-teal" />
             <span className="font-extrabold text-navy text-sm">{topResult.value}</span>
             <span className="text-body text-xs">{topResult.metric}</span>

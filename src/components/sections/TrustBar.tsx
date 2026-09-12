@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 
-const FALLBACK = ["Google", "Shopify", "HubSpot", "Slack", "Heroku", "Stripe"];
+const FALLBACK = ["Google", "Shopify", "HubSpot", "Slack", "Heroku", "Stripe", "Notion", "Figma"];
 
 export async function TrustBar() {
   const clients = await prisma.successStory.findMany({
@@ -9,34 +9,50 @@ export async function TrustBar() {
     orderBy: { createdAt: "asc" },
   });
 
+  const items =
+    clients.length > 0
+      ? clients.map((c) => ({ key: c.id, logo: c.clientLogo!, name: c.clientName || "Client" }))
+      : FALLBACK.map((b) => ({ key: b, logo: null, name: b }));
+
+  /* The marquee only looks continuous if one half already overflows the
+     viewport, so pad a short client list out before duplicating it. */
+  const padded = items.length === 0 ? [] : Array.from(
+    { length: Math.max(items.length, 10) },
+    (_, i) => items[i % items.length]
+  );
+  /* Rendered twice so the -50% translate loops seamlessly. */
+  const track = [...padded, ...padded];
+
   return (
-    <section className="bg-bg-mint py-10 border-y border-border-light">
+    <section className="bg-surface py-12 border-b border-border-light">
       <div className="container-main">
-        <p className="text-xs font-semibold uppercase tracking-widest text-muted text-center mb-8">
-          Trusted by leading brands
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted text-center mb-9">
+          Trusted by teams that ship
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
-          {clients.length > 0 ? (
-            clients.map((c) => (
-              <div key={c.id} className="flex items-center justify-center w-36 h-16">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
+      </div>
+
+      <div className="marquee-mask overflow-hidden">
+        <div className="marquee-track">
+          {track.map((item, i) => (
+            <div
+              key={`${item.key}-${i}`}
+              aria-hidden={i >= padded.length}
+              className="shrink-0 w-44 h-16 mx-4 flex items-center justify-center"
+            >
+              {item.logo ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
                 <img
-                  src={c.clientLogo!}
-                  alt={c.clientName || "Client"}
-                  className="max-h-full max-w-full object-contain"
+                  src={item.logo}
+                  alt={item.name}
+                  className="max-h-full max-w-full object-contain brightness-0 invert opacity-40 transition-all duration-300 hover:brightness-100 hover:invert-0 hover:opacity-100"
                 />
-              </div>
-            ))
-          ) : (
-            FALLBACK.map((brand) => (
-              <span
-                key={brand}
-                className="w-36 h-16 flex items-center justify-center text-lg font-bold text-muted/50 hover:text-body transition-colors tracking-tight"
-              >
-                {brand}
-              </span>
-            ))
-          )}
+              ) : (
+                <span className="text-xl font-bold tracking-tight text-muted/60 transition-colors duration-300 hover:text-heading">
+                  {item.name}
+                </span>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </section>

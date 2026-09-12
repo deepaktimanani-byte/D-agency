@@ -30,7 +30,7 @@ export function TestimonialsCarousel({ testimonials, variant = "mint" }: Testimo
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   return (
-    <section className={`section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-white"}`}>
+    <section className={`section-pad ${variant === "mint" ? "bg-bg-mint" : "bg-surface"}`}>
       <div className="container-main">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div>

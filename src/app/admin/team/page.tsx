@@ -63,7 +63,7 @@ export default function AdminTeamPage() {
         {loading ? <div className="flex items-center justify-center py-10"><Loader2 className="w-5 h-5 animate-spin text-navy" /></div>
           : <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {members.map((m) => (
-                <div key={m.id} className="bg-white rounded-2xl border border-gray-100 p-5 flex flex-col items-center text-center gap-3">
+                <div key={m.id} className="bg-surface rounded-2xl border border-gray-100 p-5 flex flex-col items-center text-center gap-3">
                   <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-100 flex-shrink-0">
                     {m.photo ? <Image src={m.photo} alt={m.name} width={64} height={64} className="object-cover w-full h-full" />
                       : <div className="w-full h-full flex items-center justify-center bg-navy/10"><span className="font-bold text-navy text-lg">{m.name.charAt(0)}</span></div>}
@@ -86,7 +86,7 @@ export default function AdminTeamPage() {
 
       {editing && (
         <div className="w-72 flex-shrink-0">
-          <form onSubmit={save} className="bg-white rounded-2xl border border-gray-100 p-5 flex flex-col gap-4 sticky top-0">
+          <form onSubmit={save} className="bg-surface rounded-2xl border border-gray-100 p-5 flex flex-col gap-4 sticky top-0">
             <div className="flex items-center justify-between">
               <h3 className="font-bold text-heading text-sm">{editing === "new" ? "New Member" : "Edit Member"}</h3>
               <button type="button" onClick={() => setEditing(null)} className="text-muted hover:text-heading"><X className="w-4 h-4" /></button>

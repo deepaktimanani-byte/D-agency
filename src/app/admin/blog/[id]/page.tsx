@@ -78,7 +78,7 @@ export default function BlogEditPage() {
         <Link href="/admin/blog" className="w-8 h-8 rounded-lg flex items-center justify-center text-muted hover:bg-gray-100 transition-colors"><ArrowLeft className="w-4 h-4" /></Link>
         <h2 className="font-bold text-heading">{isNew ? "New Post" : "Edit Post"}</h2>
       </div>
-      <div className="bg-white rounded-2xl border border-gray-100 p-5 flex flex-col gap-4">
+      <div className="bg-surface rounded-2xl border border-gray-100 p-5 flex flex-col gap-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-body">Title *</label>

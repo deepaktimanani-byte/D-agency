@@ -25,6 +25,8 @@ interface LeadFormProps {
   variant?: "inline" | "full";
   services?: { id: string; title: string }[];
   redirectOnSuccess?: boolean;
+  /** Use "teal" when the form sits on a dark surface — navy on navy reads flat. */
+  submitVariant?: "primary" | "teal" | "dark";
 }
 
 export function LeadForm({
@@ -32,6 +34,7 @@ export function LeadForm({
   variant = "full",
   services = [],
   redirectOnSuccess = true,
+  submitVariant = "primary",
 }: LeadFormProps) {
   const pathname = usePathname();
   const router = useRouter();
@@ -139,6 +142,7 @@ export function LeadForm({
       <div className={cn(isInline ? "flex-shrink-0" : "sm:col-span-2")}>
         <Button
           type="submit"
+          variant={submitVariant}
           disabled={isSubmitting}
           size={isInline ? "md" : "lg"}
           className="w-full sm:w-auto"
@@ -152,6 +156,8 @@ export function LeadForm({
       </div>
 
       <style jsx global>{`
+        /* Token-driven so the same form is dark on the public site and
+           white inside .admin-surface, with no second stylesheet. */
         .input-field {
           width: 100%;
           padding: 0.75rem 1rem;
@@ -160,15 +166,20 @@ export function LeadForm({
           font-family: var(--font-sans);
           font-size: 0.875rem;
           color: var(--color-heading);
-          background: white;
+          background: var(--color-surface-3);
           outline: none;
-          transition: border-color 0.2s;
+          transition: border-color 0.2s, box-shadow 0.2s;
         }
         .input-field:focus {
-          border-color: var(--color-navy);
+          border-color: var(--color-accent-teal);
+          box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent-teal) 18%, transparent);
         }
         .input-field::placeholder {
           color: var(--color-muted);
+        }
+        .input-field option {
+          background: var(--color-surface-3);
+          color: var(--color-heading);
         }
       `}</style>
     </form>

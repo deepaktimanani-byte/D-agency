@@ -103,7 +103,7 @@ export function RichTextEditor({ value, onChange, placeholder = "Start writing y
       </div>
 
       {/* Editor area */}
-      <EditorContent editor={editor} className="bg-white" />
+      <EditorContent editor={editor} className="bg-surface" />
 
       {/* Character count */}
       <div className="px-4 py-1.5 bg-gray-50 border-t border-gray-100 text-right">

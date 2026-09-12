@@ -45,7 +45,7 @@ export default function AdminLoginPage() {
 
         <form
           onSubmit={handleSubmit}
-          className="bg-white rounded-2xl border border-gray-200 p-6 flex flex-col gap-4 shadow-sm"
+          className="bg-surface rounded-2xl border border-gray-200 p-6 flex flex-col gap-4 shadow-sm"
         >
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-body uppercase tracking-wide">

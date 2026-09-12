@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import { LeadCaptureCta } from "@/components/sections/LeadCaptureCta";
+import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 import { prisma } from "@/lib/prisma";
@@ -55,7 +56,7 @@ export default async function ServicesPage({
 
       {/* Category tabs */}
       {categories.length > 0 && (
-        <section className="sticky top-16 z-10 bg-white border-b border-border-light">
+        <section className="sticky top-16 z-10 bg-surface border-b border-border-light">
           <div className="container-main">
             <div className="flex items-center gap-2 overflow-x-auto py-3 scrollbar-hide">
               <Link
@@ -87,7 +88,7 @@ export default async function ServicesPage({
       )}
 
       {/* Grid */}
-      <section className="section-pad bg-white">
+      <section className="section-pad bg-surface">
         <div className="container-main">
           {filtered.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -100,22 +101,25 @@ export default async function ServicesPage({
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {PLACEHOLDER_SERVICES.map((s, i) => (
-                <div
-                  key={s.title}
-                  className={`p-6 rounded-2xl border border-border-light flex flex-col gap-4 ${
-                    i === 1 ? "bg-navy" : "bg-white"
-                  }`}
-                >
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${i === 1 ? "bg-white/20" : "bg-bg-mint"}`}>
-                    <div className="w-7 h-7 rounded-lg bg-accent-teal/30" />
-                  </div>
-                  <h3 className={`font-bold text-lg ${i === 1 ? "text-white" : "text-heading"}`}>{s.title}</h3>
-                  <p className={`text-sm leading-relaxed ${i === 1 ? "text-white/70" : "text-body"}`}>{s.desc}</p>
-                  <span className={`text-sm font-semibold ${i === 1 ? "text-white" : "text-navy"}`}>Get in Touch →</span>
-                </div>
-              ))}
+            /* Honest empty state — never invent services the agency doesn't offer. */
+            <div className="max-w-md mx-auto text-center py-10">
+              <h3 className="text-xl font-bold text-heading">
+                Nothing published in this category yet
+              </h3>
+              <p className="mt-3 text-body leading-relaxed">
+                Tell us what you need and we&apos;ll say straight away whether
+                it&apos;s something we take on.
+              </p>
+              <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+                <Button asChild size="lg">
+                  <Link href="/contact-us">Talk to Us</Link>
+                </Button>
+                {activeSlug && (
+                  <Button asChild variant="outline" size="lg">
+                    <Link href="/services">View All Services</Link>
+                  </Button>
+                )}
+              </div>
             </div>
           )}
         </div>
@@ -125,15 +129,3 @@ export default async function ServicesPage({
     </>
   );
 }
-
-const PLACEHOLDER_SERVICES = [
-  { title: "Digital Marketing", desc: "Full-funnel digital marketing from brand awareness to conversion." },
-  { title: "Web Design & Development", desc: "Beautiful, fast, and conversion-optimised websites." },
-  { title: "SEO & Content Strategy", desc: "Rank higher, attract better leads, grow organically." },
-  { title: "Brand Identity", desc: "Build a brand that people remember and trust." },
-  { title: "Business Consulting", desc: "Strategic guidance for sustainable, scalable growth." },
-  { title: "Staffing Solutions", desc: "Hire the right talent — fast — with our expert recruiting team." },
-  { title: "Compliance & Legal Support", desc: "Stay compliant across all markets with our expert guidance." },
-  { title: "Social Media Management", desc: "Content, community, and campaigns that grow your following." },
-  { title: "PR & Communications", desc: "Shape your narrative and get your story in front of the right people." },
-];

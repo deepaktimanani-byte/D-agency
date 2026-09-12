@@ -13,16 +13,17 @@ interface ServiceCardProps {
 export function ServiceCard({ service, className, featured }: ServiceCardProps) {
   return (
     <Link
+      data-cursor-label={service.ctaText || "Explore"}
       href={`/services/${service.slug}`}
       className={cn(
-        "group flex flex-col bg-white rounded-2xl border border-border-light overflow-hidden",
+        "group flex flex-col bg-surface rounded-2xl border border-border-light overflow-hidden",
         "hover:shadow-lg hover:-translate-y-1 transition-all duration-300",
         featured && "border-navy/20 shadow-sm",
         className
       )}
     >
       {/* Cover image */}
-      <div className={cn("relative w-full aspect-video overflow-hidden", featured ? "bg-navy" : "bg-bg-mint")}>
+      <div className={cn("relative w-full aspect-video overflow-hidden", featured ? "panel-accent" : "bg-surface-3")}>
         {service.coverImage ? (
           <Image
             src={service.coverImage}

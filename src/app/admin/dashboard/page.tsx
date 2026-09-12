@@ -108,7 +108,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Recent enquiries */}
-      <div className="bg-white rounded-2xl border border-gray-100">
+      <div className="bg-surface rounded-2xl border border-gray-100">
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
           <h2 className="font-bold text-heading text-sm">Recent Enquiries</h2>
           <Link href="/admin/enquiries" className="text-xs font-semibold text-navy hover:underline">

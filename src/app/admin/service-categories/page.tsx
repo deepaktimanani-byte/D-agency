@@ -80,7 +80,7 @@ export default function ServiceCategoriesPage() {
 
       {/* Add row */}
       {adding && (
-        <div className="flex items-center gap-2 bg-white rounded-2xl border border-gray-100 px-4 py-3">
+        <div className="flex items-center gap-2 bg-surface rounded-2xl border border-gray-100 px-4 py-3">
           <input
             autoFocus
             type="text"
@@ -101,7 +101,7 @@ export default function ServiceCategoriesPage() {
       )}
 
       {/* List */}
-      <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-gray-100 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-12">
             <Loader2 className="w-5 h-5 animate-spin text-navy" />

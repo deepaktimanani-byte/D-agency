@@ -117,7 +117,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       )}
 
       {/* Content */}
-      <section className="section-pad bg-white">
+      <section className="section-pad bg-surface">
         <div className="container-main">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
             {/* Article body */}
@@ -151,7 +151,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             {/* Sidebar */}
             <aside className="flex flex-col gap-6">
               {post.author && (
-                <div className="p-5 rounded-2xl border border-border-light bg-white">
+                <div className="p-5 rounded-2xl border border-border-light bg-surface">
                   <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-3">
                     About the Author
                   </p>
@@ -181,14 +181,14 @@ export default async function BlogPostPage({ params }: PageProps) {
                 </div>
               )}
 
-              <div className="p-5 rounded-2xl bg-navy text-white">
+              <div className="p-5 rounded-2xl panel-accent text-white">
                 <h3 className="font-bold mb-2">Ready to grow?</h3>
                 <p className="text-white/70 text-sm mb-4 leading-relaxed">
                   Book a free consultation with our team.
                 </p>
                 <Link
                   href="/contact-us"
-                  className="block text-center text-sm font-semibold bg-accent-teal text-white px-4 py-2.5 rounded-full hover:opacity-90 transition-opacity"
+                  className="block text-center text-sm font-semibold bg-accent-teal text-on-accent px-4 py-2.5 rounded-full hover:opacity-90 transition-opacity"
                 >
                   Get in Touch
                 </Link>

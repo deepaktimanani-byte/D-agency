@@ -8,12 +8,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
 
   if (pathname === "/admin/login") {
-    return <>{children}</>;
+    return <div className="admin-surface min-h-screen bg-gray-50">{children}</div>;
   }
 
   return (
     <AdminGuard>
-      <div className="flex h-screen overflow-hidden bg-gray-50">
+      {/* admin-surface re-declares the light design tokens, so shared
+          components render light in here while the public site stays dark. */}
+      <div className="admin-surface flex h-screen overflow-hidden bg-gray-50">
         <AdminSidebar />
         <div className="flex-1 flex flex-col overflow-hidden">
           <AdminHeader />

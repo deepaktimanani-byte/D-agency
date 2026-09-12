@@ -54,7 +54,7 @@ export default async function BlogPage({
 
       {/* Category filter */}
       {categories.length > 0 && (
-        <section className="sticky top-16 z-10 bg-white border-b border-border-light">
+        <section className="sticky top-16 z-10 bg-surface border-b border-border-light">
           <div className="container-main">
             <div className="flex items-center gap-2 overflow-x-auto py-3 scrollbar-hide">
               <Link
@@ -86,7 +86,7 @@ export default async function BlogPage({
       )}
 
       {/* Posts */}
-      <section className="section-pad bg-white">
+      <section className="section-pad bg-surface">
         <div className="container-main">
           {posts.length > 0 ? (
             <>
@@ -138,7 +138,7 @@ export default async function BlogPage({
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {PLACEHOLDER_POSTS.map((p) => (
-                <div key={p.title} className="rounded-2xl border border-border-light bg-white overflow-hidden">
+                <div key={p.title} className="rounded-2xl border border-border-light bg-surface overflow-hidden">
                   <div className="h-44 bg-gradient-to-br from-bg-mint to-accent-teal/10" />
                   <div className="p-5">
                     <span className="text-xs font-semibold text-accent-teal bg-accent-teal/10 px-3 py-1 rounded-full">{p.category}</span>
