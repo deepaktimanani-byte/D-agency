@@ -1,7 +1,5 @@
 import { prisma } from "@/lib/prisma";
 
-const FALLBACK = ["Google", "Shopify", "HubSpot", "Slack", "Heroku", "Stripe", "Notion", "Figma"];
-
 export async function TrustBar() {
   const clients = await prisma.successStory.findMany({
     where: { status: "published", clientLogo: { not: null } },
@@ -9,19 +7,25 @@ export async function TrustBar() {
     orderBy: { createdAt: "asc" },
   });
 
-  const items =
-    clients.length > 0
-      ? clients.map((c) => ({ key: c.id, logo: c.clientLogo!, name: c.clientName || "Client" }))
-      : FALLBACK.map((b) => ({ key: b, logo: null, name: b }));
+  // No real client logos yet — show nothing rather than inventing brands.
+  if (clients.length === 0) return null;
 
-  /* The marquee only looks continuous if one half already overflows the
-     viewport, so pad a short client list out before duplicating it. */
-  const padded = items.length === 0 ? [] : Array.from(
-    { length: Math.max(items.length, 10) },
-    (_, i) => items[i % items.length]
+  // A marquee only makes sense with enough logos to fill the width. Below
+  // that, cloning one logo across the screen reads as broken (and overstates
+  // the client list), so a short list renders as a static centred row.
+  const scroll = clients.length >= 4;
+
+  const Logo = ({ logo, name }: { logo: string; name: string }) => (
+    <div className="mx-4 flex h-20 w-40 shrink-0 items-center justify-center">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={logo}
+        alt={name}
+        className="max-h-full max-w-full object-contain opacity-80 transition-opacity duration-300 hover:opacity-100"
+        loading="lazy"
+      />
+    </div>
   );
-  /* Rendered twice so the -50% translate loops seamlessly. */
-  const track = [...padded, ...padded];
 
   return (
     <section className="bg-surface py-12 border-b border-border-light">
@@ -31,30 +35,24 @@ export async function TrustBar() {
         </p>
       </div>
 
-      <div className="marquee-mask overflow-hidden">
-        <div className="marquee-track">
-          {track.map((item, i) => (
-            <div
-              key={`${item.key}-${i}`}
-              aria-hidden={i >= padded.length}
-              className="shrink-0 w-44 h-16 mx-4 flex items-center justify-center"
-            >
-              {item.logo ? (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img
-                  src={item.logo}
-                  alt={item.name}
-                  className="max-h-full max-w-full object-contain brightness-0 invert opacity-40 transition-all duration-300 hover:brightness-100 hover:invert-0 hover:opacity-100"
-                />
-              ) : (
-                <span className="text-xl font-bold tracking-tight text-muted/60 transition-colors duration-300 hover:text-heading">
-                  {item.name}
-                </span>
-              )}
-            </div>
+      {scroll ? (
+        <div className="marquee-mask overflow-hidden">
+          {/* Duplicated so the -50% translate loops seamlessly. */}
+          <div className="marquee-track">
+            {[...clients, ...clients].map((c, i) => (
+              <div key={`${c.id}-${i}`} aria-hidden={i >= clients.length}>
+                <Logo logo={c.clientLogo!} name={c.clientName || "Client"} />
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="container-main flex flex-wrap items-center justify-center gap-2">
+          {clients.map((c) => (
+            <Logo key={c.id} logo={c.clientLogo!} name={c.clientName || "Client"} />
           ))}
         </div>
-      </div>
+      )}
     </section>
   );
 }
