@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { ok, err, requireAdmin, slugify } from '@/lib/api-helpers';
+import { invalidatePublicData } from '@/lib/public-data';
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const denied = requireAdmin(req);
@@ -44,6 +45,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         include: { results: true, category: true, services: { include: { service: true } } },
       });
     });
+    invalidatePublicData('published-stories');
     return ok(item);
   } catch {
     return err('Failed to update story', 500);
@@ -57,6 +59,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   try {
     const { id } = await params;
     await prisma.successStory.delete({ where: { id } });
+    invalidatePublicData('published-stories');
     return ok({ deleted: true });
   } catch {
     return err('Failed to delete story', 500);

@@ -66,7 +66,7 @@ export default function AdminServicesPage() {
                     <p className="font-semibold text-heading">{s.title}</p>
                     <p className="text-muted text-xs">/services/{s.slug}</p>
                   </td>
-                  <td className="px-5 py-3.5 text-body text-sm hidden md:table-cell">{s.category?.name || "—"}</td>
+                  <td className="px-5 py-3.5 text-body text-sm hidden md:table-cell">{s.category?.name || "-"}</td>
                   <td className="px-5 py-3.5">
                     <span className={cn("text-xs font-semibold px-2.5 py-1 rounded-full capitalize",
                       s.status === "published" ? "bg-green-50 text-green-600" : "bg-gray-100 text-gray-500"

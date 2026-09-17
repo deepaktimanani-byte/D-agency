@@ -8,7 +8,7 @@ interface WordRevealProps {
   className?: string;
   /** Words listed here get the gradient accent treatment. */
   highlight?: string[];
-  /** Gradient every word from this index onward — exact, so repeated words stay safe. */
+  /** Gradient every word from this index onward - exact, so repeated words stay safe. */
   highlightFrom?: number;
   delay?: number;
   as?: "h1" | "h2" | "p";
@@ -30,7 +30,7 @@ const word: Variants = {
 
 const normalize = (w: string) => w.toLowerCase().replace(/[^a-z0-9]/gi, "");
 
-/** Headline that reveals word-by-word — the signature hero motion. */
+/** Headline that reveals word-by-word - the signature hero motion. */
 export function WordReveal({
   text,
   className,
@@ -44,7 +44,10 @@ export function WordReveal({
   const hot = new Set(highlight.map(normalize));
 
   const children: ReactNode = words.map((w, i) => (
-    <span key={`${w}-${i}`} className="inline-block overflow-hidden align-bottom">
+    <span
+      key={`${w}-${i}`}
+      className="inline-block overflow-hidden align-bottom pb-[0.12em] -mb-[0.12em]"
+    >
       <motion.span
         className={cn(
           "inline-block",

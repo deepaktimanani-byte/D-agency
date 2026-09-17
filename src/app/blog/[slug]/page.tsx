@@ -1,8 +1,8 @@
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 import { BlogCard } from "@/components/ui/BlogCard";
 import { LeadCaptureCta } from "@/components/sections/LeadCaptureCta";
-import { prisma } from "@/lib/prisma";
+import { getBlogPostBySlug, getRelatedBlogPosts } from "@/lib/public-data";
 import type { BlogPost } from "@/types";
 import { formatDate } from "@/lib/utils";
 import { Clock } from "lucide-react";
@@ -17,7 +17,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const p = await prisma.blogPost.findUnique({ where: { slug } });
+  const p = await getBlogPostBySlug(slug);
   if (!p) return { title: "Blog Post" };
   return {
     title: p.metaTitle || p.title,
@@ -29,17 +29,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params;
 
-  const [raw, allRaw] = await Promise.all([
-    prisma.blogPost.findUnique({ where: { slug, status: "published" }, include: { category: true, author: true } }),
-    prisma.blogPost.findMany({ where: { status: "published" }, include: { category: true, author: true }, orderBy: { publishedAt: "desc" } }),
-  ]);
+  const raw = await getBlogPostBySlug(slug);
 
   if (!raw) notFound();
 
   const post = raw as unknown as BlogPost;
-  const related = (allRaw as unknown as BlogPost[])
-    .filter((p) => p.id !== post.id && p.category?.id === post.category?.id)
-    .slice(0, 3);
+  const related = (await getRelatedBlogPosts(post.id, post.category?.id)) as unknown as BlogPost[];
 
   return (
     <>

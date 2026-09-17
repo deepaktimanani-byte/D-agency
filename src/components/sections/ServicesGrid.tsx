@@ -25,7 +25,7 @@ export function ServicesGrid({
   const featured = services.filter((s) => s.isFeatured).slice(0, 5);
   const display = featured.length > 0 ? featured : services.slice(0, 5);
 
-  // Nothing published yet — render nothing rather than inventing services.
+  // Nothing published yet - render nothing rather than inventing services.
   if (display.length === 0) return null;
 
   return (
@@ -37,7 +37,7 @@ export function ServicesGrid({
       }
     >
       <div className={bare ? "" : "container-main"}>
-        {/* Header — editorial split, heading left / action right */}
+        {/* Header - editorial split, heading left / action right */}
         {showHeader && (
         <div className="mb-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <Reveal className="max-w-2xl">
@@ -52,14 +52,14 @@ export function ServicesGrid({
           <Reveal delay={0.15} className="max-w-md">
             <p className="leading-relaxed text-body">
               Most companies juggle five vendors who blame each other. We run
-              strategy, build, marketing and operations under one roof — and one
+              strategy, build, marketing and operations under one roof - and one
               point of accountability.
             </p>
           </Reveal>
         </div>
         )}
 
-        {/* Bento grid — first tile anchors the layout */}
+        {/* Bento grid - first tile anchors the layout */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:auto-rows-[minmax(0,1fr)]">
           {display.map((service, i) => (
             <Reveal

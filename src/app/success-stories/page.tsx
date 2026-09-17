@@ -1,9 +1,9 @@
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 import { LeadCaptureCta } from "@/components/sections/LeadCaptureCta";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { StoryCard } from "@/components/ui/StoryCard";
-import { prisma } from "@/lib/prisma";
+import { getPublishedStories, getServiceCategories } from "@/lib/public-data";
 import type { SuccessStory } from "@/types";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -16,15 +16,7 @@ export const metadata: Metadata = {
 const INDUSTRIES = ["SaaS", "E-Commerce", "Retail", "Healthcare", "Finance", "Real Estate", "Education"];
 
 async function getData(industry?: string, category?: string) {
-  const stories = await prisma.successStory.findMany({
-    where: {
-      status: "published",
-      ...(industry ? { industry } : {}),
-      ...(category ? { category: { name: category } } : {}),
-    },
-    include: { results: true, category: true },
-    orderBy: { createdAt: "desc" },
-  });
+  const stories = await getPublishedStories(industry, category);
   return stories as unknown as SuccessStory[];
 }
 
@@ -37,7 +29,7 @@ export default async function SuccessStoriesPage({
 
   const [stories, serviceCategories] = await Promise.all([
     getData(activeIndustry, activeCategory),
-    prisma.serviceCategory.findMany({ orderBy: { name: "asc" } }),
+    getServiceCategories(),
   ]);
 
   const activeFilter = activeIndustry

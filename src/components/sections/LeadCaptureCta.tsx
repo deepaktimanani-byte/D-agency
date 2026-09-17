@@ -9,7 +9,7 @@ interface LeadCtaProps {
 }
 
 const PROMISES = [
-  "A 30-minute call — no deck, no pitch",
+  "A 30-minute call - no deck, no pitch",
   "An honest read on what is actually broken",
   "A written next step, whether you hire us or not",
 ];
@@ -33,7 +33,7 @@ export function LeadCaptureCta({ services = [] }: LeadCtaProps) {
           <div>
             <WordReveal
               as="h2"
-              text="So — what can we build?"
+              text="So - what can we build?"
               highlight={["build?"]}
               className="display-lg font-extrabold text-white"
             />

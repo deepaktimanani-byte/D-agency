@@ -1,14 +1,26 @@
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { TestimonialsCarousel } from "@/components/sections/TestimonialsCarousel";
 import { LeadCaptureCta } from "@/components/sections/LeadCaptureCta";
-import { prisma } from "@/lib/prisma";
-import type { SiteSettings, TeamMember, Testimonial } from "@/types";
+import {
+  getPublicSettings,
+  getPublishedTeam,
+  getPublishedTestimonials,
+} from "@/lib/public-data";
+import type { TeamMember, Testimonial } from "@/types";
 import { Award, Heart, Lightbulb, Target } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
+
+function LinkedinIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  );
+}
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -20,7 +32,7 @@ const VALUES = [
   {
     icon: Target,
     title: "Results-Driven",
-    desc: "Every engagement is measured against tangible business outcomes — revenue, leads, brand equity.",
+    desc: "Every engagement is measured against tangible business outcomes - revenue, leads, brand equity.",
   },
   {
     icon: Lightbulb,
@@ -35,18 +47,17 @@ const VALUES = [
   {
     icon: Award,
     title: "Excellence in Execution",
-    desc: "Ideas are cheap. What matters is flawless delivery — on time, on budget, on point.",
+    desc: "Ideas are cheap. What matters is flawless delivery - on time, on budget, on point.",
   },
 ];
 
 async function getData() {
   const [settingsRows, team, testimonials] = await Promise.all([
-    prisma.siteSetting.findMany(),
-    prisma.teamMember.findMany({ where: { status: "published" }, orderBy: { sortOrder: "asc" } }),
-    prisma.testimonial.findMany({ where: { status: "published", displayPage: { contains: "about" } }, orderBy: { sortOrder: "asc" } }),
+    getPublicSettings(),
+    getPublishedTeam(),
+    getPublishedTestimonials("about"),
   ]);
-  const settings = settingsRows.reduce<Partial<SiteSettings>>((acc, r) => ({ ...acc, [r.key]: r.value }), {});
-  return { settings, team: team as unknown as TeamMember[], testimonials: testimonials as unknown as Testimonial[] };
+  return { settings: settingsRows, team: team as unknown as TeamMember[], testimonials: testimonials as unknown as Testimonial[] };
 }
 
 export default async function AboutPage() {
@@ -61,16 +72,16 @@ export default async function AboutPage() {
             <div>
               <SectionLabel>Our Story</SectionLabel>
               <h1 className="text-4xl sm:text-5xl font-extrabold text-heading mb-5">
-                We Help Businesses Grow — End to End
+                We Help Businesses Grow - End to End
               </h1>
               <p className="text-body text-lg leading-relaxed mb-4">
                 We started with a simple belief: growing businesses deserve access to
-                senior talent and strategic execution — not just advice. So we built a
+                senior talent and strategic execution - not just advice. So we built a
                 firm that does both.
               </p>
               <p className="text-body leading-relaxed">
                 Today we serve startups, founders, coaches, and established businesses
-                across digital, technology, marketing, compliance, and operations — all
+                across digital, technology, marketing, compliance, and operations - all
                 under one roof.
               </p>
             </div>
@@ -134,27 +145,50 @@ export default async function AboutPage() {
             {team.length > 0 ? (
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
                 {team.map((member) => (
-                  <div key={member.id} className="flex flex-col items-center text-center gap-3">
-                    <div className="w-24 h-24 rounded-full overflow-hidden bg-navy/10">
-                      {member.photo ? (
-                        <Image
-                          src={member.photo}
-                          alt={member.name}
-                          width={96}
-                          height={96}
-                          className="object-cover w-full h-full"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-navy/30 to-accent-teal/30 flex items-center justify-center">
-                          <span className="text-2xl font-bold text-white">
-                            {member.name.charAt(0)}
-                          </span>
+                  <div
+                    key={member.id}
+                    className="group flex h-full flex-col items-center rounded-3xl border border-border-light bg-surface-2/80 p-5 text-center shadow-sm transition-all hover:-translate-y-1 hover:border-navy/40 hover:shadow-xl"
+                  >
+                    <div className="flex w-full flex-col items-center gap-4">
+                      <div className="h-28 w-28 overflow-hidden rounded-full bg-navy/10 ring-4 ring-bg-mint">
+                        {member.photo ? (
+                          <Image
+                            src={member.photo}
+                            alt={member.name}
+                            width={112}
+                            height={112}
+                            className="h-full w-full object-cover"
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-navy/30 to-accent-teal/30">
+                            <span className="text-3xl font-bold text-white">
+                              {member.name.charAt(0)}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="w-full">
+                        <div className="flex items-center justify-center gap-2">
+                          <p className="font-bold text-heading">{member.name}</p>
+                          {member.linkedinUrl && (
+                            <a
+                              href={member.linkedinUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`${member.name} on LinkedIn`}
+                              className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-navy/10 text-navy transition-colors hover:bg-navy hover:text-white"
+                            >
+                              <LinkedinIcon className="h-3.5 w-3.5" />
+                            </a>
+                          )}
                         </div>
-                      )}
-                    </div>
-                    <div>
-                      <p className="font-bold text-heading">{member.name}</p>
-                      <p className="text-body text-sm">{member.designation}</p>
+                        <p className="text-body text-sm">{member.designation}</p>
+                        {member.bio && (
+                          <p className="mt-3 line-clamp-4 text-sm leading-relaxed text-body">
+                            {member.bio}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}

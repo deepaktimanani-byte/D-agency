@@ -15,7 +15,7 @@ interface TestimonialsCarouselProps {
 const PLACEHOLDER: Testimonial[] = [
   { id: "1", name: "Sarah M.", company: "TechStart", role: "Founder", message: "This agency is amazing. They helped us scale from zero to 10K customers in just 8 months. Their end-to-end approach is exactly what a startup needs.", rating: 5, avatar: "", displayPage: "home", sortOrder: 0 },
   { id: "2", name: "James K.", company: "GrowthCo", role: "CEO", message: "Working with this team transformed our digital presence completely. Professional, fast, and results-driven. Highly recommend to any growing business.", rating: 5, avatar: "", displayPage: "home", sortOrder: 1 },
-  { id: "3", name: "Priya L.", company: "BrandBuilders", role: "CMO", message: "The ROI we've seen from their campaigns is unmatched. They understand both strategy and execution — a rare combination.", rating: 5, avatar: "", displayPage: "home", sortOrder: 2 },
+  { id: "3", name: "Priya L.", company: "BrandBuilders", role: "CMO", message: "The ROI we've seen from their campaigns is unmatched. They understand both strategy and execution - a rare combination.", rating: 5, avatar: "", displayPage: "home", sortOrder: 2 },
   { id: "4", name: "Alex R.", company: "ScaleUp Inc", role: "Director", message: "From web development to compliance, they handled everything. Saved us time and money while delivering exceptional quality.", rating: 5, avatar: "", displayPage: "home", sortOrder: 3 },
 ];
 

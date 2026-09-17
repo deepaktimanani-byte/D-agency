@@ -30,7 +30,7 @@ export function ServiceCard({ service, className, featured }: ServiceCardProps) 
             alt={service.title}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"
-            unoptimized
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">

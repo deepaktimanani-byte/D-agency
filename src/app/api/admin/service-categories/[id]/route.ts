@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { ok, err, requireAdmin } from '@/lib/api-helpers';
+import { invalidatePublicData } from '@/lib/public-data';
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const denied = requireAdmin(req);
@@ -12,6 +13,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       where: { id },
       data: { name, slug: slug || name.toLowerCase().replace(/\s+/g, '-') },
     });
+    invalidatePublicData('service-categories', 'published-services', 'published-stories', 'published-blog-posts');
     return ok(item);
   } catch {
     return err('Failed to update category', 500);
@@ -24,6 +26,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   try {
     const { id } = await params;
     await prisma.serviceCategory.delete({ where: { id } });
+    invalidatePublicData('service-categories', 'published-services', 'published-stories', 'published-blog-posts');
     return ok({ deleted: true });
   } catch {
     return err('Failed to delete category', 500);

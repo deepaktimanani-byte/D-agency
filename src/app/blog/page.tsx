@@ -1,10 +1,11 @@
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 import { BlogCard } from "@/components/ui/BlogCard";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { prisma } from "@/lib/prisma";
+import { getPublishedBlogPosts } from "@/lib/public-data";
 import type { BlogCategory, BlogPost } from "@/types";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -14,11 +15,7 @@ export const metadata: Metadata = {
 };
 
 async function getData(category?: string) {
-  const posts = await prisma.blogPost.findMany({
-    where: { status: "published", ...(category ? { category: { slug: category } } : {}) },
-    include: { category: true, author: true },
-    orderBy: { publishedAt: "desc" },
-  });
+  const posts = await getPublishedBlogPosts(category);
   const uniqueCategories: BlogCategory[] = Array.from(
     new Map(posts.filter((p) => p.category).map((p) => [p.category!.id, p.category!])).values()
   );
@@ -98,9 +95,12 @@ export default async function BlogPage({
                 >
                   <div className="rounded-2xl overflow-hidden aspect-video bg-bg-mint relative">
                     {featured.featuredImage ? (
-                      <img
+                      <Image
                         src={featured.featuredImage}
                         alt={featured.title}
+                        width={960}
+                        height={540}
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (

@@ -5,7 +5,7 @@ import { useRef, type ReactNode } from "react";
 interface MagneticProps {
   children: ReactNode;
   className?: string;
-  /** How far the element chases the cursor, 0–1. */
+  /** How far the element chases the cursor, 0-1. */
   strength?: number;
 }
 

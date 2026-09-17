@@ -58,8 +58,8 @@ export default function AdminStoriesPage() {
                   <p className="font-semibold text-heading line-clamp-1">{s.title}</p>
                   {s.isFeatured && <span className="text-xs font-semibold text-navy">Featured</span>}
                 </td>
-                <td className="px-5 py-3.5 text-body text-sm hidden md:table-cell">{s.clientName || "—"}</td>
-                <td className="px-5 py-3.5 text-body text-sm hidden sm:table-cell">{s.industry || "—"}</td>
+                <td className="px-5 py-3.5 text-body text-sm hidden md:table-cell">{s.clientName || "-"}</td>
+                <td className="px-5 py-3.5 text-body text-sm hidden sm:table-cell">{s.industry || "-"}</td>
                 <td className="px-5 py-3.5">
                   <span className={cn("text-xs font-semibold px-2.5 py-1 rounded-full capitalize",
                     s.status === "published" ? "bg-green-50 text-green-600" : "bg-gray-100 text-gray-500"

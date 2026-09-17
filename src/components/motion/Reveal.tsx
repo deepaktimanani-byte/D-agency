@@ -7,7 +7,7 @@ type Direction = "up" | "down" | "left" | "right" | "none";
 interface RevealProps {
   children: ReactNode;
   className?: string;
-  /** Stagger offset in seconds — use i * 0.08 inside lists. */
+  /** Stagger offset in seconds - use i * 0.08 inside lists. */
   delay?: number;
   direction?: Direction;
   /** Travel distance in px. */

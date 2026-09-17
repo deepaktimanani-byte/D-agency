@@ -1,10 +1,10 @@
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 import { LeadCaptureCta } from "@/components/sections/LeadCaptureCta";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { StoryCard } from "@/components/ui/StoryCard";
-import { prisma } from "@/lib/prisma";
+import { getRelatedStories, getStoryBySlug } from "@/lib/public-data";
 import type { SuccessStory } from "@/types";
 import { Quote, TrendingUp } from "lucide-react";
 import type { Metadata } from "next";
@@ -18,7 +18,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const s = await prisma.successStory.findUnique({ where: { slug } });
+  const s = await getStoryBySlug(slug);
   if (!s) return { title: "Success Story" };
   return {
     title: s.metaTitle || s.title,
@@ -29,15 +29,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function SuccessStoryDetailPage({ params }: PageProps) {
   const { slug } = await params;
 
-  const [raw, allRaw] = await Promise.all([
-    prisma.successStory.findUnique({ where: { slug, status: "published" }, include: { results: true, services: { include: { service: true } } } }),
-    prisma.successStory.findMany({ where: { status: "published" }, include: { results: true }, orderBy: { createdAt: "desc" } }),
-  ]);
+  const raw = await getStoryBySlug(slug);
 
   if (!raw) notFound();
 
   const story = raw as unknown as SuccessStory;
-  const related = (allRaw as unknown as SuccessStory[]).filter((s) => s.id !== story.id).slice(0, 3);
+  const related = (await getRelatedStories(story.id)) as unknown as SuccessStory[];
 
   return (
     <>
@@ -132,7 +129,7 @@ export default async function SuccessStoryDetailPage({ params }: PageProps) {
                   </p>
                   {(story.testimonialAuthorName || story.testimonialAuthorRole) && (
                     <footer className="text-sm text-muted font-medium">
-                      — {story.testimonialAuthorName}
+                      - {story.testimonialAuthorName}
                       {story.testimonialAuthorRole && `, ${story.testimonialAuthorRole}`}
                     </footer>
                   )}
@@ -206,7 +203,11 @@ export default async function SuccessStoryDetailPage({ params }: PageProps) {
                 <p className="text-white/70 text-sm mb-5 leading-relaxed">
                   Let&apos;s talk about your goals and build a plan together.
                 </p>
-                <Button asChild variant="teal" className="w-full justify-center">
+                <Button
+                  asChild
+                  variant="teal"
+                  className="w-full justify-center"
+                >
                   <Link href="/contact-us">Get a Free Consultation</Link>
                 </Button>
               </div>

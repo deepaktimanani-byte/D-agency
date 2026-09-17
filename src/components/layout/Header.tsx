@@ -2,9 +2,10 @@
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { Menu, Phone, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -16,21 +17,10 @@ const NAV_LINKS = [
 
 export function Header({ phone }: { phone?: string }) {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  /* Pages that open on a dark full-bleed hero — the header floats over them. */
+  /* Pages that open on a dark full-bleed hero - the header floats over them. */
   const isDarkHero = pathname === "/";
-  /* Transparent state: only while sitting on top of that dark hero. */
-  const overlay = isDarkHero && !scrolled;
-
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20);
-    handler();
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
-
   /* Close the drawer on navigation. Adjusting state during render (rather than
      in an effect) avoids the cascading re-render React warns about. */
   const [lastPath, setLastPath] = useState(pathname);
@@ -43,19 +33,24 @@ export function Header({ phone }: { phone?: string }) {
     <>
       <header
         className={cn(
-          "fixed top-0 inset-x-0 z-50 transition-all duration-300",
-          overlay
-            ? "bg-transparent"
-            : scrolled
-              ? "bg-surface/85 backdrop-blur-xl border-b border-border-light shadow-lg shadow-black/40"
-              : "bg-surface/60 backdrop-blur-md"
+          "fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-xl border-b border-border-light shadow-sm transition-all duration-300"
         )}
       >
-        <div className="container-main flex items-center justify-between h-16 lg:h-20">
+        <div className="container-main flex items-center justify-between h-20 lg:h-24">
           {/* Logo */}
-          <Link href="/" className="font-extrabold text-xl tracking-tight">
-            <span className="font-light text-body transition-colors">Agency</span>
-            <span className="text-navy transition-colors">Platform</span>
+          <Link
+            href="/"
+            aria-label="Fix Your Gap home"
+            className="inline-flex items-center px-1"
+          >
+            <Image
+              src="/images/fixyourgap-logo.png"
+              alt="Fix Your Gap"
+              width={128}
+              height={112}
+              className="h-16 w-20 object-contain lg:h-20 lg:w-24"
+              priority
+            />
           </Link>
 
           {/* Desktop nav */}
@@ -68,7 +63,9 @@ export function Header({ phone }: { phone?: string }) {
                   href={link.href}
                   className={cn(
                     "relative text-sm font-medium transition-colors py-1",
-                    active ? "text-heading" : "text-body hover:text-heading"
+                    active
+                      ? "text-[#37001B] font-semibold"
+                      : "text-[#4A2638] hover:text-[#B7046A]"
                   )}
                 >
                   {link.label}
@@ -90,7 +87,7 @@ export function Header({ phone }: { phone?: string }) {
               <a
                 href={`tel:${phone}`}
                 className={cn(
-                  "flex items-center gap-2 text-sm font-medium text-body transition-colors hover:text-heading"
+                  "flex items-center gap-2 text-sm font-medium text-[#4A2638] transition-colors hover:text-[#B7046A]"
                 )}
               >
                 <Phone className="w-4 h-4" />
@@ -100,10 +97,7 @@ export function Header({ phone }: { phone?: string }) {
             <Button
               asChild
               size="md"
-              className={cn(
-                overlay &&
-                  "bg-white/10 text-white border border-white/25 backdrop-blur-md hover:bg-white/20"
-              )}
+              className="consultation-gradient shadow-md"
             >
               <Link href="/contact-us">Get a Free Consultation</Link>
             </Button>
@@ -113,7 +107,7 @@ export function Header({ phone }: { phone?: string }) {
           <button
             onClick={() => setMobileOpen((v) => !v)}
             className={cn(
-              "lg:hidden p-2 rounded-lg text-heading transition-colors hover:bg-white/10"
+              "lg:hidden p-2 rounded-lg text-[#37001B] transition-colors hover:bg-[#F8EDF4]"
             )}
             aria-label="Toggle menu"
           >
@@ -173,15 +167,18 @@ export function Header({ phone }: { phone?: string }) {
                 {phone}
               </a>
             )}
-            <Button asChild className="w-full justify-center">
+            <Button
+              asChild
+              className="consultation-gradient w-full justify-center shadow-md"
+            >
               <Link href="/contact-us">Get a Free Consultation</Link>
             </Button>
           </div>
         </div>
       </div>
 
-      {/* Spacer offsets the fixed header — the dark hero supplies its own top padding. */}
-      {!isDarkHero && <div className="h-16 lg:h-20" />}
+      {/* Spacer offsets the fixed header - the dark hero supplies its own top padding. */}
+      {!isDarkHero && <div className="h-20 lg:h-24" />}
     </>
   );
 }

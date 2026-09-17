@@ -167,7 +167,7 @@ export default function ServiceEditPage() {
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-body">Category</label>
             <select value={form.categoryId} onChange={(e) => set("categoryId", e.target.value)} className={inp}>
-              <option value="">— No category —</option>
+              <option value="">- No category -</option>
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>{c.name}</option>
               ))}
@@ -192,7 +192,7 @@ export default function ServiceEditPage() {
           </div>
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-body">Typical Timeline</label>
-            <input type="text" value={form.timeline} onChange={(e) => set("timeline", e.target.value)} className={inp} placeholder="e.g. 2–4 weeks" />
+            <input type="text" value={form.timeline} onChange={(e) => set("timeline", e.target.value)} className={inp} placeholder="e.g. 2-4 weeks" />
           </div>
         </div>
         <div className="flex flex-col gap-1.5">
@@ -221,7 +221,7 @@ export default function ServiceEditPage() {
             onChange={(e) => setFeatureInput(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addFeature(); } }}
             className={inp}
-            placeholder="e.g. Google Ads Management — press Enter to add"
+            placeholder="e.g. Google Ads Management - press Enter to add"
           />
           <button type="button" onClick={addFeature} className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-navy text-white text-sm font-semibold hover:bg-navy-dark transition-colors">
             <Plus className="w-4 h-4" />

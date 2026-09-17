@@ -63,7 +63,7 @@ export default function DashboardPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           label="Total Enquiries"
-          value={loading ? "—" : (stats?.totalEnquiries ?? 0)}
+          value={loading ? "-" : (stats?.totalEnquiries ?? 0)}
           icon={MessageSquare}
           trend={stats?.newEnquiries ? `${stats.newEnquiries} new` : undefined}
           trendUp
@@ -71,19 +71,19 @@ export default function DashboardPage() {
         />
         <StatCard
           label="Active Services"
-          value={loading ? "—" : (stats?.totalServices ?? 0)}
+          value={loading ? "-" : (stats?.totalServices ?? 0)}
           icon={Layers}
           color="teal"
         />
         <StatCard
           label="Blog Posts"
-          value={loading ? "—" : (stats?.publishedPosts ?? 0)}
+          value={loading ? "-" : (stats?.publishedPosts ?? 0)}
           icon={FileText}
           color="orange"
         />
         <StatCard
           label="Success Stories"
-          value={loading ? "—" : (stats?.totalStories ?? 0)}
+          value={loading ? "-" : (stats?.totalStories ?? 0)}
           icon={Trophy}
           color="purple"
         />

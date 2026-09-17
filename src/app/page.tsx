@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 import { BlogHighlights } from "@/components/sections/BlogHighlights";
 import { FaqSection } from "@/components/sections/FaqSection";
@@ -10,41 +10,30 @@ import { SuccessStoriesHighlight } from "@/components/sections/SuccessStoriesHig
 import { TestimonialsCarousel } from "@/components/sections/TestimonialsCarousel";
 import { TrustBar } from "@/components/sections/TrustBar";
 import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
-import { prisma } from "@/lib/prisma";
-import type { SiteSettings } from "@/types";
+import {
+  getPublicSettings,
+  getHomepageBlogPosts,
+  getHomepageStories,
+  getPublishedServices,
+  getPublishedTestimonials,
+} from "@/lib/public-data";
 
 async function fetchHomeData() {
   const [settingsRows, services, stories, testimonials, posts] = await Promise.all([
-    prisma.siteSetting.findMany(),
-    prisma.service.findMany({
-      where: { status: "published" },
-      include: { category: true },
-      orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
-    }),
-    prisma.successStory.findMany({
-      where: { status: "published" },
-      include: { results: true },
-      orderBy: { createdAt: "desc" },
-      take: 3,
-    }),
-    prisma.testimonial.findMany({
-      where: { status: "published", displayPage: { contains: "home" } },
-      orderBy: { sortOrder: "asc" },
-    }),
-    prisma.blogPost.findMany({
-      where: { status: "published" },
-      include: { category: true, author: true },
-      orderBy: { publishedAt: "desc" },
-      take: 3,
-    }),
+    getPublicSettings(),
+    getPublishedServices(),
+    getHomepageStories(),
+    getPublishedTestimonials("home"),
+    getHomepageBlogPosts(),
   ]);
 
-  const settings = settingsRows.reduce<Partial<SiteSettings>>(
-    (acc, row) => ({ ...acc, [row.key]: row.value }),
-    {}
-  );
-
-  return { settings, services, stories, testimonials, posts };
+  return {
+    settings: settingsRows,
+    services,
+    stories,
+    testimonials,
+    posts,
+  };
 }
 
 export default async function HomePage() {
@@ -58,7 +47,7 @@ export default async function HomePage() {
   ].some((v) => v && v.trim() !== "");
 
   // Compute alternating white/mint for every light section that will actually render.
-  // Dark sections (StatsSection, LeadCaptureCta) are excluded — they're always dark.
+  // Dark sections (StatsSection, LeadCaptureCta) are excluded - they're always dark.
   const visibleLight = [
     services.length > 0 && "services",
     "whychooseus",

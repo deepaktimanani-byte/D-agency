@@ -1,9 +1,8 @@
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 import { LeadForm } from "@/components/ui/LeadForm";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { prisma } from "@/lib/prisma";
-import type { SiteSettings } from "@/types";
+import { getContactServices, getPublicSettings } from "@/lib/public-data";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -15,11 +14,10 @@ export const metadata: Metadata = {
 
 async function getData() {
   const [settingsRows, services] = await Promise.all([
-    prisma.siteSetting.findMany(),
-    prisma.service.findMany({ where: { status: "published" }, select: { id: true, title: true }, orderBy: { sortOrder: "asc" } }),
+    getPublicSettings(),
+    getContactServices(),
   ]);
-  const settings = settingsRows.reduce<Partial<SiteSettings>>((acc, r) => ({ ...acc, [r.key]: r.value }), {});
-  return { settings, services };
+  return { settings: settingsRows, services };
 }
 
 export default async function ContactPage() {
@@ -65,7 +63,7 @@ export default async function ContactPage() {
             Let&apos;s Start a Conversation
           </h1>
           <p className="text-body text-lg leading-relaxed">
-            Book a free 30-minute consultation. No commitment, no jargon — just
+            Book a free 30-minute consultation. No commitment, no jargon - just
             a straight conversation about your goals.
           </p>
         </div>
@@ -139,12 +137,12 @@ export default async function ContactPage() {
                 <h4 className="font-semibold text-heading text-sm mb-3">Office Hours</h4>
                 <div className="flex flex-col gap-1.5 text-sm text-body">
                   <div className="flex justify-between">
-                    <span>Monday – Friday</span>
-                    <span className="font-medium text-heading">9am – 6pm</span>
+                    <span>Monday - Friday</span>
+                    <span className="font-medium text-heading">9am - 6pm</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Saturday</span>
-                    <span className="font-medium text-heading">10am – 2pm</span>
+                    <span className="font-medium text-heading">10am - 2pm</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Sunday</span>

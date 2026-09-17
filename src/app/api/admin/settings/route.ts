@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { ok, err, requireAdmin } from '@/lib/api-helpers';
+import { invalidatePublicData } from '@/lib/public-data';
 
 export async function GET(req: NextRequest) {
   const denied = requireAdmin(req);
@@ -29,6 +30,7 @@ export async function PUT(req: NextRequest) {
         })
       )
     );
+    invalidatePublicData('public-site-settings');
     const all = await prisma.siteSetting.findMany();
     return ok(Object.fromEntries(all.map((s) => [s.key, s.value])));
   } catch {

@@ -32,9 +32,10 @@ export function StoryCard({ story, className }: StoryCardProps) {
             alt={story.title}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
-          /* No photo — logo fills the banner on a light bg */
+          /* No photo - logo fills the banner on a light bg */
           <div className="absolute inset-0 bg-surface-3 flex items-center justify-center px-10 py-8">
             {story.clientLogo ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -78,7 +79,6 @@ export function StoryCard({ story, className }: StoryCardProps) {
                 width={60}
                 height={20}
                 className="h-5 w-auto object-contain opacity-70"
-                unoptimized
               />
             )}
             {story.clientName && (

@@ -1,10 +1,10 @@
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 import { LeadCaptureCta } from "@/components/sections/LeadCaptureCta";
 import { ServicesGrid } from "@/components/sections/ServicesGrid";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { prisma } from "@/lib/prisma";
+import { getRelatedServices, getServiceBySlug } from "@/lib/public-data";
 import type { Service } from "@/types";
 import { CheckCircle2, Clock, DollarSign, Users } from "lucide-react";
 import type { Metadata } from "next";
@@ -18,7 +18,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const s = await prisma.service.findUnique({ where: { slug } });
+  const s = await getServiceBySlug(slug);
   if (!s) return { title: "Service" };
   return {
     title: s.metaTitle || s.title,
@@ -29,15 +29,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ServiceDetailPage({ params }: PageProps) {
   const { slug } = await params;
 
-  const [raw, allServices] = await Promise.all([
-    prisma.service.findUnique({ where: { slug, status: "published" }, include: { category: true } }),
-    prisma.service.findMany({ where: { status: "published" }, include: { category: true }, orderBy: [{ sortOrder: "asc" }] }),
-  ]);
+  const raw = await getServiceBySlug(slug);
 
   if (!raw) notFound();
 
   const svc = raw as unknown as Service;
-  const related = allServices.filter((s) => s.id !== raw.id).slice(0, 3) as unknown as Service[];
+  const related = (await getRelatedServices(raw.id)) as unknown as Service[];
 
   return (
     <>
@@ -84,7 +81,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             </div>
             <div className="rounded-3xl overflow-hidden aspect-video panel-accent">
               {svc.coverImage ? (
-                <Image src={svc.coverImage} alt={svc.title} width={640} height={360} className="w-full h-full object-cover" />
+                <Image
+                  src={svc.coverImage}
+                  alt={svc.title}
+                  width={640}
+                  height={360}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="w-full h-full object-cover"
+                />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
                   <div className="text-center text-white p-10">
@@ -103,7 +107,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         <div className="container-main">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
-            {/* Left — Overview + Process + FAQs */}
+            {/* Left - Overview + Process + FAQs */}
             <div className="lg:col-span-2">
               {svc.processSteps?.length > 0 && (
                 <div className="mt-12">

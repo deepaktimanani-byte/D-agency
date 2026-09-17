@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { ok, err, requireAdmin, slugify } from '@/lib/api-helpers';
+import { invalidatePublicData } from '@/lib/public-data';
 
 export async function GET(req: NextRequest) {
   const denied = requireAdmin(req);
@@ -38,6 +39,7 @@ export async function POST(req: NextRequest) {
       },
       include: { results: true, category: true, services: { include: { service: true } } },
     });
+    invalidatePublicData('published-stories');
     return ok(item);
   } catch (e) {
     console.error('[POST /api/admin/success-stories]', e);

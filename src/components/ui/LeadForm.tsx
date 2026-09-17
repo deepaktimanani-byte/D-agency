@@ -25,7 +25,7 @@ interface LeadFormProps {
   variant?: "inline" | "full";
   services?: { id: string; title: string }[];
   redirectOnSuccess?: boolean;
-  /** Use "teal" when the form sits on a dark surface — navy on navy reads flat. */
+  /** Use "teal" when the form sits on a dark surface - navy on navy reads flat. */
   submitVariant?: "primary" | "teal" | "dark";
 }
 

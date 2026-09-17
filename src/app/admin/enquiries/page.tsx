@@ -106,7 +106,7 @@ export default function EnquiriesPage() {
                         )}
                       </div>
                     </td>
-                    <td className="px-5 py-3.5 text-body text-xs hidden lg:table-cell">{enq.serviceInterest || "—"}</td>
+                    <td className="px-5 py-3.5 text-body text-xs hidden lg:table-cell">{enq.serviceInterest || "-"}</td>
                     <td className="px-5 py-3.5">
                       <select
                         value={enq.status}

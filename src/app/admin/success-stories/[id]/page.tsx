@@ -117,7 +117,7 @@ export default function StoryEditPage() {
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-body">Industry</label>
             <select value={form.industry} onChange={(e) => set("industry", e.target.value)} className={inp}>
-              <option value="">— Select industry —</option>
+              <option value="">- Select industry -</option>
               {INDUSTRIES.map((i) => <option key={i} value={i}>{i}</option>)}
             </select>
             {form.industry === "Other" && (
@@ -133,7 +133,7 @@ export default function StoryEditPage() {
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-body">Service Category</label>
             <select value={form.categoryId} onChange={(e) => set("categoryId", e.target.value)} className={inp}>
-              <option value="">— No category —</option>
+              <option value="">- No category -</option>
               {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
             {categories.length === 0 && (

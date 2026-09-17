@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { ok, err, requireAdmin, slugify } from '@/lib/api-helpers';
+import { invalidatePublicData } from '@/lib/public-data';
 
 export async function GET(req: NextRequest) {
   const denied = requireAdmin(req);
@@ -34,6 +35,7 @@ features: body.features ?? [],
         processSteps: body.processSteps ?? [],
       },
     });
+    invalidatePublicData('published-services');
     return ok(item);
   } catch {
     return err('Failed to create service', 500);

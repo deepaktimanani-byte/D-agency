@@ -1,13 +1,9 @@
-import { prisma } from "@/lib/prisma";
+import { getPublishedClientLogos } from "@/lib/public-data";
 
 export async function TrustBar() {
-  const clients = await prisma.successStory.findMany({
-    where: { status: "published", clientLogo: { not: null } },
-    select: { id: true, clientName: true, clientLogo: true },
-    orderBy: { createdAt: "asc" },
-  });
+  const clients = await getPublishedClientLogos();
 
-  // No real client logos yet — show nothing rather than inventing brands.
+  // No real client logos yet - show nothing rather than inventing brands.
   if (clients.length === 0) return null;
 
   // A marquee only makes sense with enough logos to fill the width. Below

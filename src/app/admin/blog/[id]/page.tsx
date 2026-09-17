@@ -103,7 +103,7 @@ export default function BlogEditPage() {
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-body">Category</label>
             <select value={form.categoryId} onChange={(e) => set("categoryId", e.target.value)} className={inp}>
-              <option value="">— No category —</option>
+              <option value="">- No category -</option>
               {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>

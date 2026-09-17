@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { ok, err, requireAdmin } from '@/lib/api-helpers';
+import { invalidatePublicData } from '@/lib/public-data';
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const denied = requireAdmin(req);
@@ -11,6 +12,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     const body = await req.json();
     const { displayPages, ...rest } = body;
     const item = await prisma.testimonial.update({ where: { id }, data: rest });
+    invalidatePublicData('published-testimonials');
     return ok(item);
   } catch (e) {
     console.error('[PUT /api/admin/testimonials/[id]]', e);
@@ -25,6 +27,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   try {
     const { id } = await params;
     await prisma.testimonial.delete({ where: { id } });
+    invalidatePublicData('published-testimonials');
     return ok({ deleted: true });
   } catch {
     return err('Failed to delete testimonial', 500);

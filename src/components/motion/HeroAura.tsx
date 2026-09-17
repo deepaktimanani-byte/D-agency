@@ -2,7 +2,7 @@
 
 /**
  * Hero backdrop: slow drifting colour fields in the brand ramp, crossed by a
- * light sweep. Replaces the earlier orbiting-icon version — literal icons
+ * light sweep. Replaces the earlier orbiting-icon version - literal icons
  * circling a headline read as clip-art and competed with the copy.
  *
  * Pure CSS transforms on four elements, no JS per frame. Decorative only.

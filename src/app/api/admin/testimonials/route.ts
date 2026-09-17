@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { ok, err, requireAdmin } from '@/lib/api-helpers';
+import { invalidatePublicData } from '@/lib/public-data';
 
 export async function GET(req: NextRequest) {
   const denied = requireAdmin(req);
@@ -24,6 +25,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { displayPages, ...rest } = body;
     const item = await prisma.testimonial.create({ data: rest });
+    invalidatePublicData('published-testimonials');
     return ok(item);
   } catch (e) {
     console.error('[POST /api/admin/testimonials]', e);

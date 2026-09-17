@@ -1,5 +1,6 @@
 import type { SiteSettings } from "@/types";
 import { Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const LinkedinIcon = () => (
@@ -58,9 +59,18 @@ export function Footer({ settings }: FooterProps) {
       <div className="container-main py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {/* Brand column */}
         <div className="lg:col-span-1 flex flex-col gap-5">
-          <Link href="/" className="font-extrabold text-xl tracking-tight">
-            <span className="text-white/70 font-light">Agency</span>
-            <span className="text-white">Platform</span>
+          <Link
+            href="/"
+            aria-label="Fix Your Gap home"
+            className="inline-flex w-fit rounded-lg bg-white/95 px-2 py-1"
+          >
+            <Image
+              src="/images/fixyourgap-logo.png"
+              alt="Fix Your Gap"
+              width={128}
+              height={112}
+              className="h-28 w-32 object-contain"
+            />
           </Link>
           <p className="text-white/60 text-sm leading-relaxed">
             {settings.footer_tagline ||
@@ -152,7 +162,7 @@ export function Footer({ settings }: FooterProps) {
       <div className="border-t border-white/10">
         <div className="container-main py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
           <span>
-            © {year} {settings.company_name || "Agency Platform"}. All rights
+            © {year} {settings.company_name || "Fix Your Gap"}. All rights
             reserved.
           </span>
           <div className="flex items-center gap-5">

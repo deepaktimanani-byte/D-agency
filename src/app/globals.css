@@ -6,7 +6,7 @@
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 
   /* ══════════════════════════════════════════════════════════════
-     BRAND PALETTE — sampled straight from the Fix Your Gap logo.
+     BRAND PALETTE - sampled straight from the Fix Your Gap logo.
      The mark runs deep plum #37001B -> magenta #D71B7E -> pink #F066B0,
      so the whole UI is that one gradient, tonally.
 
@@ -15,12 +15,12 @@
      out to a light scheme via .admin-surface below.
      ══════════════════════════════════════════════════════════════ */
 
-  /* Surfaces — near-black, warmed with a plum undertone */
+  /* Surfaces - near-black, warmed with a plum undertone */
   --color-surface:    #0A0308;
   --color-surface-2:  #140611;
   --color-surface-3:  #1E0A19;
 
-  /* Brand — "navy" is the magenta primary */
+  /* Brand - "navy" is the magenta primary */
   --color-navy:         #D71B7E;
   --color-navy-dark:    #B7046A;
   --color-navy-light:   #E8449A;
@@ -29,15 +29,15 @@
   --color-bg-mint:      #140611;
   --color-bg-dark:      #0A0308;
 
-  /* Accent — warm amber. Deliberately far brighter than the magenta so the
+  /* Accent - warm amber. Deliberately far brighter than the magenta so the
      CTA is always the lightest thing on screen. Accent use only: buttons,
      eyebrow labels, headline tails. Never large filled areas. */
   --color-accent-teal:  #FFB020;
   --color-accent-green: #FFD166;
-  /* Amber is too bright for white text — this is its foreground. */
+  /* Amber is too bright for white text - this is its foreground. */
   --color-on-accent:    #2A1206;
 
-  /* ── Text — warm whites, so nothing reads cold against the plum ── */
+  /* -- Text - warm whites, so nothing reads cold against the plum -- */
   --color-heading:  #FBF3F8;
   --color-body:     #B09AA8;
   --color-muted:    #7C6672;
@@ -96,6 +96,29 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.consultation-gradient {
+  background-color: transparent !important;
+  background-image: linear-gradient(
+    90deg,
+    #37001b 0%,
+    #37001b 30%,
+    #8a0350 60%,
+    #f066b0 100%
+  ) !important;
+  color: #ffffff;
+}
+
+.consultation-gradient:hover {
+  background-color: transparent !important;
+  background-image: linear-gradient(
+    90deg,
+    #2a0014 0%,
+    #2a0014 30%,
+    #6f0240 60%,
+    #d71b7e 100%
+  ) !important;
+}
+
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--color-surface-2); }
@@ -139,7 +162,7 @@ body {
 .tiptap s  { text-decoration: line-through; }
 
 /* ═══════════════════════════════════════════════════════════════
-   UI 2.0 — premium visual layer (SeedB2B structure + Camlion mood)
+   UI 2.0 - premium visual layer (SeedB2B structure + Camlion mood)
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── Dark surface: deep gradient, used by hero + final CTA ── */
@@ -224,116 +247,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Magnifier cursor
-   Over text it really magnifies: the hovered element is cloned into
-   .cursor-lens-zoom, scaled about the lens centre and clipped to the
-   circle. Elsewhere the glass just brightens what is underneath.
-   Size is driven from JS, so no width/height transitions here —
-   the magnification maths needs the exact current size each frame.
-   ═══════════════════════════════════════════════════════════════ */
-
-html.has-custom-cursor,
-html.has-custom-cursor * { cursor: none; }
-/* Typing and selecting genuinely need the native caret. */
-html.has-custom-cursor input,
-html.has-custom-cursor textarea,
-html.has-custom-cursor select,
-html.has-custom-cursor [contenteditable="true"] { cursor: auto; }
-
-.cursor-lens,
-.cursor-pill {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  pointer-events: none;
-  will-change: transform;
-}
-
-.cursor-lens {
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-.cursor-lens[data-visible="true"] { opacity: 1; }
-.cursor-lens[data-state="hidden"] { opacity: 0 !important; }
-
-/* The glass itself — clips the magnified clone to a circle. */
-.cursor-lens-glass {
-  position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-  overflow: hidden;
-  border: 2px solid var(--color-accent-teal);
-  border-width: 2px; /* replaced from JS, proportional to lens size */
-  background: color-mix(in srgb, #ffffff 5%, transparent);
-  backdrop-filter: brightness(1.45) saturate(1.35);
-  -webkit-backdrop-filter: brightness(1.45) saturate(1.35);
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.35),
-    0 0 16px color-mix(in srgb, var(--color-accent-teal) 50%, transparent),
-    inset 0 0 14px color-mix(in srgb, #ffffff 12%, transparent);
-  transition: box-shadow 0.26s ease;
-}
-
-/* While magnifying, the clone is opaque — drop the glass tint so text stays crisp. */
-.cursor-lens-glass[data-zoom="true"] {
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.45),
-    0 0 24px color-mix(in srgb, var(--color-accent-teal) 60%, transparent);
-}
-
-/* The cloned, scaled text. Positioned from JS every frame. */
-.cursor-lens-zoom {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform-origin: 0 0;
-  will-change: transform;
-}
-
-/* The handle — a sibling of the glass, so the circle's clip never cuts it.
-   Anchored at the lens centre and pushed out along 45deg to exactly the rim;
-   width, thickness and offset are all set from JS so it scales with the lens. */
-.cursor-lens-handle {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  border-radius: 9999px;
-  background: var(--color-accent-teal);
-  transform-origin: 0 50%;
-  box-shadow: 0 0 8px color-mix(in srgb, var(--color-accent-teal) 55%, transparent);
-}
-
-/* ── The action pill, offset clear of the lens ── */
-.cursor-pill {
-  margin-left: 34px;
-  margin-top: 24px;
-  padding: 0 14px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  border-radius: 9999px;
-  background: var(--color-navy);
-  color: #fff;
-  white-space: nowrap;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-.cursor-pill[data-state="label"] { opacity: 1; }
-
-/* Touch devices and reduced-motion users never see any of this. */
-@media (pointer: coarse), (prefers-reduced-motion: reduce) {
-  .cursor-lens, .cursor-pill { display: none; }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   Hero aura — drifting brand colour fields + a slow light sweep
+   Hero aura - drifting brand colour fields + a slow light sweep
    Replaces the orbiting-icon version; abstract, so it never
    competes with the headline for attention.
    ═══════════════════════════════════════════════════════════════ */
@@ -375,7 +289,7 @@ html.has-custom-cursor [contenteditable="true"] { cursor: auto; }
   animation: aura-drift-b 34s ease-in-out infinite;
 }
 
-/* Amber stays small — accent only, never a large filled area. */
+/* Amber stays small - accent only, never a large filled area. */
 .hero-aura-blob--amber {
   width: 22vw;
   height: 22vw;

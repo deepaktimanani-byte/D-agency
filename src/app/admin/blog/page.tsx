@@ -59,13 +59,13 @@ export default function AdminBlogPage() {
                   <p className="font-semibold text-heading line-clamp-1">{p.title}</p>
                   <p className="text-muted text-xs">/blog/{p.slug}</p>
                 </td>
-                <td className="px-5 py-3.5 text-body text-sm hidden md:table-cell">{p.category?.name || "—"}</td>
+                <td className="px-5 py-3.5 text-body text-sm hidden md:table-cell">{p.category?.name || "-"}</td>
                 <td className="px-5 py-3.5">
                   <span className={cn("text-xs font-semibold px-2.5 py-1 rounded-full capitalize",
                     p.status === "published" ? "bg-green-50 text-green-600" : "bg-gray-100 text-gray-500"
                   )}>{p.status}</span>
                 </td>
-                <td className="px-5 py-3.5 text-muted text-xs hidden sm:table-cell">{p.publishedAt ? formatDate(p.publishedAt) : "—"}</td>
+                <td className="px-5 py-3.5 text-muted text-xs hidden sm:table-cell">{p.publishedAt ? formatDate(p.publishedAt) : "-"}</td>
                 <td className="px-5 py-3.5">
                   <div className="flex items-center gap-2 justify-end">
                     <Link href={`/admin/blog/${p.id}`} className="w-8 h-8 rounded-lg flex items-center justify-center text-muted hover:bg-gray-100 hover:text-navy transition-colors"><Pencil className="w-3.5 h-3.5" /></Link>

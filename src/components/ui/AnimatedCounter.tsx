@@ -24,7 +24,7 @@ export function AnimatedCounter({ value, className }: AnimatedCounterProps) {
           hasAnimated.current = true;
           // Extract numeric part
           const match = value.match(/[\d.]+/);
-          if (!match) return; // Non-numeric stat — leave the literal text alone.
+          if (!match) return; // Non-numeric stat - leave the literal text alone.
           const end = parseFloat(match[0]);
           const prefix = value.slice(0, value.indexOf(match[0]));
           const suffix = value.slice(value.indexOf(match[0]) + match[0].length);

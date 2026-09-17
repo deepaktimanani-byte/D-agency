@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { ok, err, requireAdmin } from '@/lib/api-helpers';
+import { invalidatePublicData } from '@/lib/public-data';
 
 export async function GET(req: NextRequest) {
   const denied = requireAdmin(req);
@@ -21,6 +22,7 @@ export async function POST(req: NextRequest) {
     const item = await prisma.serviceCategory.create({
       data: { name, slug: slug || name.toLowerCase().replace(/\s+/g, '-') },
     });
+    invalidatePublicData('service-categories', 'published-services', 'published-stories', 'published-blog-posts');
     return ok(item);
   } catch {
     return err('Failed to create category', 500);

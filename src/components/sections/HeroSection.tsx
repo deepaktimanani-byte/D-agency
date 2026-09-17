@@ -74,7 +74,7 @@ export function HeroSection({ settings }: HeroSectionProps) {
           <Reveal delay={0.55} className="mt-7 max-w-2xl">
             <p className="text-lg sm:text-xl leading-relaxed text-white/60">
               {settings.hero_subheadline ||
-                "Marketing, technology, consulting, staffing and compliance — run by one accountable team, measured by one number: your growth."}
+                "Marketing, technology, consulting, staffing and compliance - run by one accountable team, measured by one number: your growth."}
             </p>
           </Reveal>
 
@@ -102,7 +102,7 @@ export function HeroSection({ settings }: HeroSectionProps) {
           </Reveal>
         </div>
 
-        {/* Proof strip — SeedB2B-style hard numbers */}
+        {/* Proof strip - SeedB2B-style hard numbers */}
         {proof.length > 0 && (
           <motion.div
             className="mt-20 sm:mt-24 grid grid-cols-2 lg:grid-cols-4 gap-px rounded-3xl overflow-hidden glass"

@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { ok, err, requireAdmin, slugify } from '@/lib/api-helpers';
+import { invalidatePublicData } from '@/lib/public-data';
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const denied = requireAdmin(req);
@@ -32,6 +33,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       where: { id },
       data: { ...data, ...(slug && { slug }), ...(publishedAt !== undefined && { publishedAt }) },
     });
+    invalidatePublicData('published-blog-posts');
     return ok(item);
   } catch (e) {
     console.error('[PUT /api/admin/blog/[id]]', e);
@@ -46,6 +48,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   try {
     const { id } = await params;
     await prisma.blogPost.delete({ where: { id } });
+    invalidatePublicData('published-blog-posts');
     return ok({ deleted: true });
   } catch {
     return err('Failed to delete post', 500);

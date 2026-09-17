@@ -11,15 +11,15 @@ const FAQS = [
   },
   {
     q: "How long does it take to see results from digital marketing?",
-    a: "Results vary by channel and strategy. Paid advertising can show results within days, while SEO and content marketing typically deliver significant results within 3–6 months.",
+    a: "Results vary by channel and strategy. Paid advertising can show results within days, while SEO and content marketing typically deliver significant results within 3-6 months.",
   },
   {
     q: "What makes your agency different from others?",
-    a: "We are a true end-to-end execution partner — not just a consultancy. We handle strategy, implementation, and ongoing optimization across digital, tech, marketing, compliance, and operations.",
+    a: "We are a true end-to-end execution partner - not just a consultancy. We handle strategy, implementation, and ongoing optimization across digital, tech, marketing, compliance, and operations.",
   },
   {
     q: "Do you work with startups and small businesses?",
-    a: "Absolutely. We specifically designed our services to be flexible and startup-friendly. We work with businesses at every stage — from pre-launch to scale-up.",
+    a: "Absolutely. We specifically designed our services to be flexible and startup-friendly. We work with businesses at every stage - from pre-launch to scale-up.",
   },
   {
     q: "What is the cost of your services?",
@@ -53,7 +53,7 @@ export function FaqSection({ variant = "mint" }: FaqSectionProps) {
             </p>
           </div>
 
-          {/* Right — accordion */}
+          {/* Right - accordion */}
           <div className="flex flex-col gap-3">
             {FAQS.map((faq, i) => (
               <div

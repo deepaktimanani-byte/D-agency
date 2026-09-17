@@ -5,12 +5,12 @@ const DIFFERENTIATORS = [
   {
     icon: Rocket,
     title: "End-to-End Execution",
-    desc: "We don't just advise — we roll up our sleeves and deliver results across every function of your business.",
+    desc: "We don't just advise - we roll up our sleeves and deliver results across every function of your business.",
   },
   {
     icon: Layers,
     title: "Multi-Service Under One Roof",
-    desc: "Digital, tech, marketing, consulting, staffing, compliance — all coordinated by one team.",
+    desc: "Digital, tech, marketing, consulting, staffing, compliance - all coordinated by one team.",
   },
   {
     icon: Users2,
@@ -30,7 +30,7 @@ const DIFFERENTIATORS = [
   {
     icon: CheckCircle2,
     title: "Proven Track Record",
-    desc: "93% client success rate with measurable outcomes — revenue growth, lead generation, brand equity.",
+    desc: "93% client success rate with measurable outcomes - revenue growth, lead generation, brand equity.",
   },
 ];
 

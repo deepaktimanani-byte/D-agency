@@ -19,7 +19,7 @@ export function SectionLabel({
         className
       )}
     >
-      <span className="w-8 h-[2px] bg-accent-teal rounded-full" />
+      <span className="w-2 h-2 rounded-full bg-accent-teal" />
       <span className="text-xs font-bold uppercase tracking-[0.18em] text-accent-teal">
         {children}
       </span>
