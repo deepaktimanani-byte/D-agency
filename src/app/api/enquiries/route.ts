@@ -5,7 +5,16 @@ import { ok, err } from '@/lib/api-helpers';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    if (!body.name || !body.email) return err('Name and email are required');
+    if (
+      typeof body.name !== 'string' ||
+      !body.name.trim() ||
+      typeof body.email !== 'string' ||
+      !body.email.trim() ||
+      typeof body.phone !== 'string' ||
+      !body.phone.trim()
+    ) {
+      return err('Name, email, and phone are required');
+    }
 
     const enquiry = await prisma.enquiry.create({ data: body });
 

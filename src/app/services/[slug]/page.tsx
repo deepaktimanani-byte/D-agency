@@ -48,23 +48,23 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               <p className="text-body text-lg leading-relaxed mb-6">{svc.shortDescription}</p>
 
               {(svc.pricing || svc.timeline || svc.targetAudience) && (
-                <div className="flex flex-wrap gap-3 mb-6">
+                <div className="flex flex-wrap items-start gap-3 mb-6">
                   {svc.pricing && (
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-border-light text-sm">
-                      <DollarSign className="w-4 h-4 text-accent-teal" />
-                      <span className="font-semibold text-heading">{svc.pricing}</span>
+                    <div className="flex min-w-0 max-w-full items-start gap-2 rounded-2xl bg-surface px-3 py-1.5 text-sm border border-border-light">
+                      <DollarSign className="mt-0.5 h-4 w-4 shrink-0 text-accent-teal" />
+                      <span className="min-w-0 whitespace-normal break-all font-semibold text-heading">{svc.pricing}</span>
                     </div>
                   )}
                   {svc.timeline && (
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-border-light text-sm">
-                      <Clock className="w-4 h-4 text-accent-teal" />
-                      <span className="font-semibold text-heading">{svc.timeline}</span>
+                    <div className="flex min-w-0 max-w-full items-start gap-2 rounded-2xl bg-surface px-3 py-1.5 text-sm border border-border-light">
+                      <Clock className="mt-0.5 h-4 w-4 shrink-0 text-accent-teal" />
+                      <span className="min-w-0 whitespace-normal break-all font-semibold text-heading">{svc.timeline}</span>
                     </div>
                   )}
                   {svc.targetAudience && (
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-border-light text-sm">
-                      <Users className="w-4 h-4 text-accent-teal" />
-                      <span className="font-semibold text-heading">{svc.targetAudience}</span>
+                    <div className="flex min-w-0 max-w-full items-start gap-2 rounded-2xl bg-surface px-3 py-1.5 text-sm border border-border-light">
+                      <Users className="mt-0.5 h-4 w-4 shrink-0 text-accent-teal" />
+                      <span className="min-w-0 whitespace-normal break-all font-semibold text-heading">{svc.targetAudience}</span>
                     </div>
                   )}
                 </div>

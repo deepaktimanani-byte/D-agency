@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/utils";
 import type { BlogPost } from "@/types";
-import { Clock, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "./Badge";
@@ -51,10 +51,6 @@ export function BlogCard({ post, className }: BlogCardProps) {
           </p>
         )}
         <div className="mt-auto flex items-center justify-between text-xs text-muted">
-          <div className="flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5" />
-            {post.readTimeMinutes} min read
-          </div>
           {post.publishedAt && (
             <span>{formatDate(post.publishedAt)}</span>
           )}

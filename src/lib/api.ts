@@ -88,7 +88,7 @@ export const publicApi = {
 export interface EnquiryPayload {
   name: string;
   email: string;
-  phone?: string;
+  phone: string;
   company?: string;
   serviceInterest?: string;
   message?: string;

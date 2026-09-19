@@ -5,7 +5,6 @@ import { LeadCaptureCta } from "@/components/sections/LeadCaptureCta";
 import { getBlogPostBySlug, getRelatedBlogPosts } from "@/lib/public-data";
 import type { BlogPost } from "@/types";
 import { formatDate } from "@/lib/utils";
-import { Clock } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -85,12 +84,6 @@ export default async function BlogPostPage({ params }: PageProps) {
             )}
             {post.publishedAt && (
               <span>{formatDate(post.publishedAt)}</span>
-            )}
-            {post.readTimeMinutes && (
-              <span className="flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5" />
-                {post.readTimeMinutes} min read
-              </span>
             )}
           </div>
         </div>

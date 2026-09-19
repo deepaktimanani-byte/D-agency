@@ -63,8 +63,7 @@ export default async function ContactPage() {
             Let&apos;s Start a Conversation
           </h1>
           <p className="text-body text-lg leading-relaxed">
-            Book a free 30-minute consultation. No commitment, no jargon - just
-            a straight conversation about your goals.
+            Book a free 30-minute consultation and let&apos;s talk about your goals.
           </p>
         </div>
       </section>
@@ -132,24 +131,6 @@ export default async function ContactPage() {
                 )}
               </div>
 
-              {/* Office hours */}
-              <div className="p-5 rounded-2xl bg-bg-mint border border-border-light">
-                <h4 className="font-semibold text-heading text-sm mb-3">Office Hours</h4>
-                <div className="flex flex-col gap-1.5 text-sm text-body">
-                  <div className="flex justify-between">
-                    <span>Monday - Friday</span>
-                    <span className="font-medium text-heading">9am - 6pm</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Saturday</span>
-                    <span className="font-medium text-heading">10am - 2pm</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Sunday</span>
-                    <span className="font-medium text-muted">Closed</span>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Form */}

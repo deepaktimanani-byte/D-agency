@@ -62,10 +62,10 @@ export function Footer({ settings }: FooterProps) {
           <Link
             href="/"
             aria-label="Fix Your Gap home"
-            className="inline-flex w-fit rounded-lg bg-white/95 px-2 py-1"
+            className="inline-flex w-fit"
           >
             <Image
-              src="/images/fixyourgap-logo.png"
+              src="/images/fixyourgap-footer-logo.png"
               alt="Fix Your Gap"
               width={128}
               height={112}
@@ -142,7 +142,7 @@ export function Footer({ settings }: FooterProps) {
         </div>
 
         {/* CTA block */}
-        <div className="flex flex-col gap-5 p-6 rounded-2xl bg-white/5 border border-white/10">
+        <div className="self-start flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-5">
           <h4 className="font-bold text-lg leading-snug">
             Ready to grow your business?
           </h4>
@@ -151,7 +151,7 @@ export function Footer({ settings }: FooterProps) {
           </p>
           <Link
             href="/contact-us"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-accent-teal text-on-accent font-semibold text-sm hover:opacity-90 transition-opacity"
+            className="yellow-cta-gradient inline-flex items-center justify-center px-6 py-3 rounded-full font-semibold text-sm transition-opacity"
           >
             Book Free Call
           </Link>

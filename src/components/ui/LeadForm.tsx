@@ -12,7 +12,7 @@ import { Button } from "./Button";
 const schema = z.object({
   name: z.string().min(2, "Name is required"),
   email: z.string().email("Valid email required"),
-  phone: z.string().optional(),
+  phone: z.string().trim().min(1, "Phone number is required"),
   company: z.string().optional(),
   serviceInterest: z.string().optional(),
   message: z.string().optional(),
@@ -26,7 +26,7 @@ interface LeadFormProps {
   services?: { id: string; title: string }[];
   redirectOnSuccess?: boolean;
   /** Use "teal" when the form sits on a dark surface - navy on navy reads flat. */
-  submitVariant?: "primary" | "teal" | "dark";
+  submitVariant?: "primary" | "teal" | "gradient" | "yellow-gradient" | "dark";
 }
 
 export function LeadForm({
@@ -103,7 +103,13 @@ export function LeadForm({
       {/* Phone */}
       {!isInline && (
         <div className="flex flex-col gap-1">
-          <input {...register("phone")} placeholder="Phone Number" className="input-field" />
+          <input
+            {...register("phone")}
+            type="tel"
+            placeholder="Phone Number *"
+            className="input-field"
+          />
+          {errors.phone && <p className="text-red-500 text-xs">{errors.phone.message}</p>}
         </div>
       )}
 

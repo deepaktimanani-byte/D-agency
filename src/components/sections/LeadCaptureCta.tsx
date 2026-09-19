@@ -66,7 +66,7 @@ export function LeadCaptureCta({ services = [] }: LeadCtaProps) {
                 variant="full"
                 services={serviceOptions}
                 redirectOnSuccess={true}
-                submitVariant="teal"
+                submitVariant="yellow-gradient"
               />
             </div>
           </Reveal>

@@ -58,9 +58,9 @@ export function TestimonialsCarousel({ testimonials, variant = "mint" }: Testimo
         </div>
 
         <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex gap-6">
+          <div className="flex items-stretch gap-6">
             {items.map((t) => (
-              <div key={t.id} className="flex-[0_0_320px] sm:flex-[0_0_360px]">
+              <div key={t.id} className="testimonial-slide h-full">
                 <TestimonialCard testimonial={t} />
               </div>
             ))}

@@ -12,7 +12,7 @@ export function TestimonialCard({ testimonial, className }: TestimonialCardProps
   return (
     <div
       className={cn(
-        "flex flex-col gap-4 p-6 bg-surface rounded-2xl border border-border-light shadow-sm",
+        "flex h-[280px] w-full flex-col gap-4 overflow-hidden p-6 bg-surface rounded-2xl border border-border-light shadow-sm",
         className
       )}
     >

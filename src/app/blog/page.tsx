@@ -121,9 +121,6 @@ export default async function BlogPage({
                     )}
                     <div className="flex items-center gap-3 text-sm text-muted">
                       {featured.author?.name && <span>{featured.author.name}</span>}
-                      {featured.readTimeMinutes && (
-                        <span>{featured.readTimeMinutes} min read</span>
-                      )}
                     </div>
                   </div>
                 </Link>
@@ -143,7 +140,6 @@ export default async function BlogPage({
                   <div className="p-5">
                     <span className="text-xs font-semibold text-accent-teal bg-accent-teal/10 px-3 py-1 rounded-full">{p.category}</span>
                     <h3 className="font-bold text-heading mt-3 mb-2 text-base leading-snug">{p.title}</h3>
-                    <p className="text-muted text-xs">{p.read}</p>
                   </div>
                 </div>
               ))}
@@ -156,10 +152,10 @@ export default async function BlogPage({
 }
 
 const PLACEHOLDER_POSTS = [
-  { title: "10 Digital Marketing Trends That Will Dominate in 2025", category: "Marketing", read: "6 min read" },
-  { title: "How to Build a Scalable Tech Stack for Your Startup", category: "Technology", read: "8 min read" },
-  { title: "The Ultimate Guide to Personal Branding for Founders", category: "Branding", read: "10 min read" },
-  { title: "Why Most SEO Strategies Fail (And How to Fix Yours)", category: "SEO", read: "7 min read" },
-  { title: "Compliance Essentials Every Growing Business Must Know", category: "Legal", read: "5 min read" },
-  { title: "How to Hire Your First 10 Employees Without Burning Out", category: "Operations", read: "9 min read" },
+  { title: "10 Digital Marketing Trends That Will Dominate in 2025", category: "Marketing" },
+  { title: "How to Build a Scalable Tech Stack for Your Startup", category: "Technology" },
+  { title: "The Ultimate Guide to Personal Branding for Founders", category: "Branding" },
+  { title: "Why Most SEO Strategies Fail (And How to Fix Yours)", category: "SEO" },
+  { title: "Compliance Essentials Every Growing Business Must Know", category: "Legal" },
+  { title: "How to Hire Your First 10 Employees Without Burning Out", category: "Operations" },
 ];

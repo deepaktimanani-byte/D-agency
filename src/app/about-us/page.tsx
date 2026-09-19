@@ -1,7 +1,6 @@
 export const revalidate = 300;
 
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { StatsSection } from "@/components/sections/StatsSection";
 import { TestimonialsCarousel } from "@/components/sections/TestimonialsCarousel";
 import { LeadCaptureCta } from "@/components/sections/LeadCaptureCta";
 import {
@@ -32,22 +31,22 @@ const VALUES = [
   {
     icon: Target,
     title: "Results-Driven",
-    desc: "Every engagement is measured against tangible business outcomes - revenue, leads, brand equity.",
+    desc: "Every strategy has a purpose — to create measurable impact, meaningful growth, and lasting business value.",
   },
   {
     icon: Lightbulb,
     title: "Strategic Thinking",
-    desc: "We bring senior-level strategy to businesses of every size. No cookie-cutter playbooks.",
+    desc: "We look beyond the brief to understand the bigger picture, creating thoughtful strategies tailored to where your business wants to go.",
   },
   {
     icon: Heart,
     title: "Client-First Culture",
-    desc: "Your success is our success. We operate as an extension of your team, not a vendor.",
+    desc: "We build partnerships, not just projects. By staying close, communicating openly, and understanding your ambitions, we create better work together.",
   },
   {
     icon: Award,
     title: "Excellence in Execution",
-    desc: "Ideas are cheap. What matters is flawless delivery - on time, on budget, on point.",
+    desc: "Great ideas deserve great execution. We bring care, clarity, and attention to every detail from concept to completion.",
   },
 ];
 
@@ -68,7 +67,7 @@ export default async function AboutPage() {
       {/* Hero */}
       <section className="section-pad bg-bg-mint">
         <div className="container-main">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="max-w-3xl mx-auto">
             <div>
               <SectionLabel>Our Story</SectionLabel>
               <h1 className="text-4xl sm:text-5xl font-extrabold text-heading mb-5">
@@ -85,27 +84,12 @@ export default async function AboutPage() {
                 under one roof.
               </p>
             </div>
-            <div className="relative">
-              <div className="rounded-3xl panel-accent aspect-video flex items-center justify-center overflow-hidden">
-                <div className="text-center text-white p-10">
-                  <p className="text-5xl font-extrabold mb-2">5+</p>
-                  <p className="text-white/70">Years in Business</p>
-                </div>
-              </div>
-              <div className="absolute -bottom-5 -left-5 bg-surface rounded-2xl p-5 shadow-xl">
-                <p className="font-extrabold text-2xl text-navy">200+</p>
-                <p className="text-body text-sm">Clients Served</p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <StatsSection settings={settings} />
-
       {/* Values */}
-      <section className="section-pad bg-surface">
+      <section className="section-pad !pt-[clamp(3.5rem,7vw,6rem)] bg-surface">
         <div className="container-main">
           <div className="text-center mb-12 max-w-xl mx-auto">
             <SectionLabel align="center">What We Stand For</SectionLabel>
@@ -147,10 +131,10 @@ export default async function AboutPage() {
                 {team.map((member) => (
                   <div
                     key={member.id}
-                    className="group flex h-full flex-col items-center rounded-3xl border border-border-light bg-surface-2/80 p-5 text-center shadow-sm transition-all hover:-translate-y-1 hover:border-navy/40 hover:shadow-xl"
+                    className="group flex h-[360px] flex-col items-center overflow-hidden rounded-3xl border border-border-light bg-surface-2/80 p-6 text-center shadow-sm transition-all hover:-translate-y-1 hover:border-navy/40 hover:shadow-xl"
                   >
-                    <div className="flex w-full flex-col items-center gap-4">
-                      <div className="h-28 w-28 overflow-hidden rounded-full bg-navy/10 ring-4 ring-bg-mint">
+                    <div className="flex h-full w-full flex-col items-center gap-4">
+                      <div className="h-28 w-28 min-h-28 min-w-28 shrink-0 aspect-square overflow-hidden rounded-full bg-navy/10 ring-4 ring-bg-mint">
                         {member.photo ? (
                           <Image
                             src={member.photo}
@@ -167,7 +151,7 @@ export default async function AboutPage() {
                           </div>
                         )}
                       </div>
-                      <div className="w-full">
+                      <div className="flex h-full w-full flex-col">
                         <div className="flex items-center justify-center gap-2">
                           <p className="font-bold text-heading">{member.name}</p>
                           {member.linkedinUrl && (
@@ -182,12 +166,10 @@ export default async function AboutPage() {
                             </a>
                           )}
                         </div>
-                        <p className="text-body text-sm">{member.designation}</p>
-                        {member.bio && (
-                          <p className="mt-3 line-clamp-4 text-sm leading-relaxed text-body">
-                            {member.bio}
-                          </p>
-                        )}
+                        <p className="min-h-10 text-body text-sm">{member.designation}</p>
+                        <p className="mt-3 min-h-24 text-left text-sm leading-relaxed text-body line-clamp-4">
+                          {member.bio || " "}
+                        </p>
                       </div>
                     </div>
                   </div>

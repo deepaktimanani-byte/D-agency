@@ -1,6 +1,21 @@
 "use client";
-import { MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+
+function WhatsAppIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className="h-7 w-7 fill-none stroke-current"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M20.2 11.2a8.1 8.1 0 0 1-11.9 7.1L4 19.5l1.3-4.1A8.1 8.1 0 1 1 20.2 11.2Z" />
+      <path d="M8.2 7.7c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.1.1-.1.3 0 .5.3.6 1.2 1.7 2.2 2.2.2.1.4.1.5-.1l.6-.7c.1-.2.3-.2.5-.1l1.7.8c.2.1.3.3.2.5l-.2.8c-.1.4-.5.7-.9.8-.9.1-2.5-.4-4.1-1.9-1.4-1.3-2.1-2.8-2.3-3.7-.1-.5.1-1 .5-1.5Z" />
+    </svg>
+  );
+}
 
 interface WhatsAppButtonProps {
   number: string;
@@ -37,7 +52,7 @@ export function WhatsAppButton({
         ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
       `}
     >
-      <MessageCircle className="w-7 h-7 fill-white" />
+      <WhatsAppIcon />
     </a>
   );
 }

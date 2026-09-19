@@ -1,6 +1,7 @@
 "use client";
 import { adminApi } from "@/lib/api";
 import { ImageUpload } from "@/components/ui/ImageUpload";
+import { ABOUT_CARD_DESCRIPTION_MAX_LENGTH } from "@/lib/content-limits";
 import type { TeamMember } from "@/types";
 import { Loader2, Pencil, Plus, Save, Trash2, X } from "lucide-react";
 import Image from "next/image";
@@ -29,7 +30,12 @@ export default function AdminTeamPage() {
   function set<K extends keyof FormData>(k: K, v: FormData[K]) { setForm((p) => ({ ...p, [k]: v })); }
 
   async function save(e: React.FormEvent) {
-    e.preventDefault(); setSaving(true);
+    e.preventDefault();
+    if (form.bio.length > ABOUT_CARD_DESCRIPTION_MAX_LENGTH) {
+      alert(`Bio must be ${ABOUT_CARD_DESCRIPTION_MAX_LENGTH} characters or fewer.`);
+      return;
+    }
+    setSaving(true);
     try {
       if (editing === "new") {
         const m = await adminApi.createMember(form) as TeamMember;
@@ -98,8 +104,19 @@ export default function AdminTeamPage() {
               </div>
             ))}
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-semibold text-body">Bio</label>
-              <textarea rows={3} value={form.bio} onChange={(e) => set("bio", e.target.value)} className={`${inp} resize-none`} />
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-semibold text-body">Bio</label>
+                <span className={`text-[11px] ${form.bio.length > ABOUT_CARD_DESCRIPTION_MAX_LENGTH ? "text-red-500" : "text-muted"}`}>
+                  {form.bio.length}/{ABOUT_CARD_DESCRIPTION_MAX_LENGTH}
+                </span>
+              </div>
+              <textarea
+                rows={3}
+                maxLength={ABOUT_CARD_DESCRIPTION_MAX_LENGTH}
+                value={form.bio}
+                onChange={(e) => set("bio", e.target.value)}
+                className={`${inp} resize-none`}
+              />
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-body">Sort Order</label>

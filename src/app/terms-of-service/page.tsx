@@ -135,7 +135,7 @@ export default function TermsOfServicePage() {
           <h1 className="text-4xl sm:text-5xl font-extrabold text-heading mb-4">
             Terms &amp; Conditions
           </h1>
-          <p className="text-body">Last Updated: 17 September 2026</p>
+          <p className="text-body">Last Updated: 15th September 2026</p>
         </div>
       </section>
 

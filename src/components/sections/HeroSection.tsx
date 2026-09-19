@@ -82,7 +82,7 @@ export function HeroSection({ settings }: HeroSectionProps) {
           <Reveal delay={0.7} className="mt-10">
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Magnetic>
-                <Button asChild size="lg" variant="teal" className="group shadow-lg shadow-accent-teal/20">
+                <Button asChild size="lg" variant="yellow-gradient" className="group shadow-lg shadow-amber-500/25">
                   <Link href="/contact-us">
                     {settings.hero_cta_primary || "Book a Free Strategy Call"}
                     <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />

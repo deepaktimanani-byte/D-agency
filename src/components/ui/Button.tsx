@@ -17,6 +17,10 @@ const buttonVariants = cva(
           "text-navy hover:text-navy-dark underline-offset-4 hover:underline",
         teal:
           "bg-accent-teal text-on-accent rounded-full hover:opacity-90 shadow-sm active:scale-[0.98]",
+        gradient:
+          "home-cta-gradient text-white rounded-full shadow-lg active:scale-[0.98]",
+        "yellow-gradient":
+          "yellow-cta-gradient rounded-full shadow-lg active:scale-[0.98]",
         dark:
           "bg-bg-dark text-white rounded-full hover:opacity-90 shadow-sm active:scale-[0.98]",
       },

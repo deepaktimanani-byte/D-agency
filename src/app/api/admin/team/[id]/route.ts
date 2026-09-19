@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { ok, err, requireAdmin } from '@/lib/api-helpers';
 import { invalidatePublicData } from '@/lib/public-data';
+import { ABOUT_CARD_DESCRIPTION_MAX_LENGTH } from '@/lib/content-limits';
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const denied = requireAdmin(req);
@@ -10,6 +11,9 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   try {
     const { id } = await params;
     const body = await req.json();
+    if (body.bio != null && (typeof body.bio !== 'string' || body.bio.length > ABOUT_CARD_DESCRIPTION_MAX_LENGTH)) {
+      return err(`Bio must be ${ABOUT_CARD_DESCRIPTION_MAX_LENGTH} characters or fewer`);
+    }
     const item = await prisma.teamMember.update({ where: { id }, data: body });
     invalidatePublicData('published-team', 'published-blog-posts');
     return ok(item);
