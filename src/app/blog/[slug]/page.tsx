@@ -3,6 +3,7 @@ export const revalidate = 300;
 import { BlogCard } from "@/components/ui/BlogCard";
 import { LeadCaptureCta } from "@/components/sections/LeadCaptureCta";
 import { getBlogPostBySlug, getRelatedBlogPosts } from "@/lib/public-data";
+import { DEFAULT_DESCRIPTION, socialMetadata } from "@/lib/social-metadata";
 import type { BlogPost } from "@/types";
 import { formatDate } from "@/lib/utils";
 import type { Metadata } from "next";
@@ -18,10 +19,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const p = await getBlogPostBySlug(slug);
   if (!p) return { title: "Blog Post" };
+  const title = p.metaTitle || p.title;
+  const description = p.metaDescription || p.excerpt || DEFAULT_DESCRIPTION;
   return {
-    title: p.metaTitle || p.title,
-    description: p.metaDescription || p.excerpt,
-    openGraph: { type: "article", images: p.featuredImage ? [p.featuredImage] : [] },
+    title,
+    description,
+    ...socialMetadata({
+      title: `${title} | Fix Your Gap`,
+      description,
+      path: `/blog/${encodeURIComponent(slug)}`,
+      image: p.featuredImage || undefined,
+      type: "article",
+    }),
   };
 }
 
@@ -42,7 +51,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         <div className="container-main max-w-3xl mx-auto">
           {post.category && (
             <Link
-              href={`/blog?category=${post.category.slug}`}
+              href={`/blog?category=${encodeURIComponent(post.category.slug)}`}
               className="inline-block text-xs font-semibold text-accent-teal bg-accent-teal/10 px-3 py-1 rounded-full mb-5 hover:bg-accent-teal/20 transition-colors"
             >
               {post.category.name}

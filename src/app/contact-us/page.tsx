@@ -3,6 +3,7 @@ export const revalidate = 300;
 import { LeadForm } from "@/components/ui/LeadForm";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { getContactServices, getPublicSettings } from "@/lib/public-data";
+import { socialMetadata } from "@/lib/social-metadata";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -10,6 +11,11 @@ export const metadata: Metadata = {
   title: "Contact Us",
   description:
     "Get in touch with our team. Book a free consultation and let's talk about your goals.",
+  ...socialMetadata({
+    title: "Contact Us | Fix Your Gap",
+    description: "Get in touch with our team. Book a free consultation and let's talk about your goals.",
+    path: "/contact-us",
+  }),
 };
 
 async function getData() {

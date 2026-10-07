@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
+import { socialMetadata } from "@/lib/social-metadata";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions",
   description:
     "Read the Fix Your Gap Terms & Conditions governing website use and professional services.",
+  ...socialMetadata({
+    title: "Terms & Conditions | Fix Your Gap",
+    description: "Read the Fix Your Gap Terms & Conditions governing website use and professional services.",
+    path: "/terms-of-service",
+  }),
 };
 
 const services = [

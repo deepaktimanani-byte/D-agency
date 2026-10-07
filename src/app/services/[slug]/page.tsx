@@ -5,6 +5,7 @@ import { ServicesGrid } from "@/components/sections/ServicesGrid";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { getRelatedServices, getServiceBySlug } from "@/lib/public-data";
+import { socialMetadata } from "@/lib/social-metadata";
 import type { Service } from "@/types";
 import { CheckCircle2, Clock, DollarSign, Users } from "lucide-react";
 import type { Metadata } from "next";
@@ -20,9 +21,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const s = await getServiceBySlug(slug);
   if (!s) return { title: "Service" };
+  const title = s.metaTitle || s.title;
+  const description = s.metaDescription || s.shortDescription;
   return {
-    title: s.metaTitle || s.title,
-    description: s.metaDescription || s.shortDescription,
+    title,
+    description,
+    ...socialMetadata({
+      title: `${title} | Fix Your Gap`,
+      description,
+      path: `/services/${encodeURIComponent(slug)}`,
+    }),
   };
 }
 

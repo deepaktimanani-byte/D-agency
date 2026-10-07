@@ -3,6 +3,7 @@ export const revalidate = 300;
 import { BlogCard } from "@/components/ui/BlogCard";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { getPublishedBlogPosts } from "@/lib/public-data";
+import { socialMetadata } from "@/lib/social-metadata";
 import type { BlogCategory, BlogPost } from "@/types";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -12,13 +13,21 @@ export const metadata: Metadata = {
   title: "Blog",
   description:
     "Insights, strategies and guides from our team of digital, marketing, and technology experts. ",
+  ...socialMetadata({
+    title: "Blog | Fix Your Gap",
+    description: "Insights, strategies and guides from our team of digital, marketing, and technology experts.",
+    path: "/blog",
+  }),
 };
 
 async function getData(category?: string) {
-  const posts = await getPublishedBlogPosts(category);
+  const allPosts = await getPublishedBlogPosts();
   const uniqueCategories: BlogCategory[] = Array.from(
-    new Map(posts.filter((p) => p.category).map((p) => [p.category!.id, p.category!])).values()
+    new Map(allPosts.filter((p) => p.category).map((p) => [p.category!.id, p.category!])).values()
   );
+  const posts = category
+    ? allPosts.filter((post) => post.category?.slug === category)
+    : allPosts;
   return { posts: posts as unknown as BlogPost[], categories: uniqueCategories };
 }
 
@@ -67,7 +76,7 @@ export default async function BlogPage({
               {categories.map((cat) => (
                 <Link
                   key={cat.id}
-                  href={`/blog?category=${cat.slug}`}
+                  href={`/blog?category=${encodeURIComponent(cat.slug)}`}
                   className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${
                     activeCategory === cat.slug
                       ? "bg-navy text-white"
@@ -133,16 +142,15 @@ export default async function BlogPage({
               </div>
             </>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {PLACEHOLDER_POSTS.map((p) => (
-                <div key={p.title} className="rounded-2xl border border-border-light bg-surface overflow-hidden">
-                  <div className="h-44 bg-gradient-to-br from-bg-mint to-accent-teal/10" />
-                  <div className="p-5">
-                    <span className="text-xs font-semibold text-accent-teal bg-accent-teal/10 px-3 py-1 rounded-full">{p.category}</span>
-                    <h3 className="font-bold text-heading mt-3 mb-2 text-base leading-snug">{p.title}</h3>
-                  </div>
-                </div>
-              ))}
+            <div className="rounded-3xl border border-border-light bg-bg-mint px-6 py-16 text-center">
+              <h2 className="text-xl font-bold text-heading">
+                {activeCategory ? "No posts in this category yet." : "No blog posts have been published yet."}
+              </h2>
+              {activeCategory && (
+                <Link href="/blog" className="mt-4 inline-block font-semibold text-navy underline">
+                  View all posts
+                </Link>
+              )}
             </div>
           )}
         </div>
@@ -150,12 +158,3 @@ export default async function BlogPage({
     </>
   );
 }
-
-const PLACEHOLDER_POSTS = [
-  { title: "10 Digital Marketing Trends That Will Dominate in 2025", category: "Marketing" },
-  { title: "How to Build a Scalable Tech Stack for Your Startup", category: "Technology" },
-  { title: "The Ultimate Guide to Personal Branding for Founders", category: "Branding" },
-  { title: "Why Most SEO Strategies Fail (And How to Fix Yours)", category: "SEO" },
-  { title: "Compliance Essentials Every Growing Business Must Know", category: "Legal" },
-  { title: "How to Hire Your First 10 Employees Without Burning Out", category: "Operations" },
-];

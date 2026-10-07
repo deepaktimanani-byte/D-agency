@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
+import { socialMetadata } from "@/lib/social-metadata";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
     "Read the Fix Your Gap Privacy Policy to learn how we collect, use, store, disclose and protect your information.",
+  ...socialMetadata({
+    title: "Privacy Policy | Fix Your Gap",
+    description: "Read the Fix Your Gap Privacy Policy to learn how we collect, use, store, disclose and protect your information.",
+    path: "/privacy-policy",
+  }),
 };
 
 const directInformation = [

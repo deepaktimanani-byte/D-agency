@@ -11,6 +11,7 @@ import {
 import type { TeamMember, Testimonial } from "@/types";
 import { Award, Heart, Lightbulb, Target } from "lucide-react";
 import type { Metadata } from "next";
+import { socialMetadata } from "@/lib/social-metadata";
 import Image from "next/image";
 
 function LinkedinIcon({ className }: { className?: string }) {
@@ -25,6 +26,11 @@ export const metadata: Metadata = {
   title: "About Us",
   description:
     "We are an end-to-end execution partner for startups, founders, and growing businesses. Learn our story, values and team.",
+  ...socialMetadata({
+    title: "About Us | Fix Your Gap",
+    description: "We are an end-to-end execution partner for startups, founders, and growing businesses. Learn our story, values and team.",
+    path: "/about-us",
+  }),
 };
 
 const VALUES = [

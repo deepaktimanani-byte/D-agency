@@ -1,12 +1,7 @@
-"use client";
-import { Magnetic } from "@/components/motion/Magnetic";
-import { Reveal } from "@/components/motion/Reveal";
 import { HeroAura } from "@/components/motion/HeroAura";
-import { WordReveal } from "@/components/motion/WordReveal";
 import { Button } from "@/components/ui/Button";
 import type { SiteSettings } from "@/types";
-import { motion } from "framer-motion";
-import { ArrowRight, Play, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 interface HeroSectionProps {
@@ -20,8 +15,8 @@ export function HeroSection({ settings }: HeroSectionProps) {
 
   /* Accent the closing words of whatever headline the admin sets, so the
      gradient lands correctly on custom copy instead of a hard-coded word. */
-  const wordCount = headline.trim().split(/\s+/).length;
-  const highlightFrom = wordCount > 3 ? wordCount - 2 : undefined;
+  const words = headline.trim().split(/\s+/);
+  const highlightFrom = words.length > 3 ? words.length - 2 : undefined;
 
   const proof = [
     { value: settings.stat_1_value, label: settings.stat_1_label },
@@ -54,62 +49,56 @@ export function HeroSection({ settings }: HeroSectionProps) {
         <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
 
           {/* Eyebrow pill */}
-          <Reveal delay={0.05} distance={16}>
+          <div>
             <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white/80">
               <Sparkles className="w-3.5 h-3.5 text-accent-teal" />
               {settings.company_tagline || "End-to-End Execution Partner"}
             </span>
-          </Reveal>
+          </div>
 
           {/* Headline */}
-          <WordReveal
-            as="h1"
-            text={headline}
-            highlightFrom={highlightFrom}
-            delay={0.25}
-            className="display-xl font-extrabold text-white mt-8"
-          />
+          <h1 className="display-xl font-extrabold text-white mt-8">
+            {highlightFrom === undefined ? headline : (
+              <>
+                {words.slice(0, highlightFrom).join(" ")}{" "}
+                <span className="text-gradient">{words.slice(highlightFrom).join(" ")}</span>
+              </>
+            )}
+          </h1>
 
           {/* Subheadline */}
-          <Reveal delay={0.55} className="mt-7 max-w-2xl">
+          <div className="mt-7 max-w-2xl">
             <p className="text-lg sm:text-xl leading-relaxed text-white/60">
               {settings.hero_subheadline ||
                 "Marketing, technology, consulting, staffing and compliance - run by one accountable team, measured by one number: your growth."}
             </p>
-          </Reveal>
+          </div>
 
           {/* CTAs */}
-          <Reveal delay={0.7} className="mt-10">
+          <div className="mt-10">
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <Magnetic>
-                <Button asChild size="lg" variant="yellow-gradient" className="group shadow-lg shadow-amber-500/25">
-                  <Link href="/contact-us">
-                    {settings.hero_cta_primary || "Book a Free Strategy Call"}
-                    <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  </Link>
-                </Button>
-              </Magnetic>
+              <Button asChild size="lg" variant="yellow-gradient" className="group shadow-lg shadow-amber-500/25">
+                <Link href="/contact-us">
+                  {settings.hero_cta_primary || "Book a Free Strategy Call"}
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </Button>
 
               <Button asChild size="lg" className="bg-white/10 text-white rounded-full border border-white/20 hover:bg-white/20 backdrop-blur-md">
-                <Link href="/success-stories" className="group">
+                <Link href="/services" className="group">
                   <span className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center transition-colors group-hover:bg-accent-teal">
-                    <Play className="w-3 h-3 fill-white text-white ml-0.5" />
+                    <ArrowRight className="w-3.5 h-3.5 text-white" />
                   </span>
-                  {settings.hero_cta_secondary || "See Our Work"}
+                  {settings.hero_cta_secondary || "Explore Our Services"}
                 </Link>
               </Button>
             </div>
-          </Reveal>
+          </div>
         </div>
 
         {/* Proof strip - SeedB2B-style hard numbers */}
         {proof.length > 0 && (
-          <motion.div
-            className="mt-20 sm:mt-24 grid grid-cols-2 lg:grid-cols-4 gap-px rounded-3xl overflow-hidden glass"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          >
+          <div className="mt-20 sm:mt-24 grid grid-cols-2 lg:grid-cols-4 gap-px rounded-3xl overflow-hidden glass">
             {proof.map((stat, i) => (
               <div
                 key={i}
@@ -123,7 +112,7 @@ export function HeroSection({ settings }: HeroSectionProps) {
                 </p>
               </div>
             ))}
-          </motion.div>
+          </div>
         )}
       </div>
     </section>

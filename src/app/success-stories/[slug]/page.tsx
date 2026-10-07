@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { StoryCard } from "@/components/ui/StoryCard";
 import { getRelatedStories, getStoryBySlug } from "@/lib/public-data";
+import { DEFAULT_DESCRIPTION, socialMetadata } from "@/lib/social-metadata";
 import type { SuccessStory } from "@/types";
 import { Quote, TrendingUp } from "lucide-react";
 import type { Metadata } from "next";
@@ -20,9 +21,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const s = await getStoryBySlug(slug);
   if (!s) return { title: "Success Story" };
+  const title = s.metaTitle || s.title;
+  const description = s.metaDescription || s.challenge?.slice(0, 160) || DEFAULT_DESCRIPTION;
   return {
-    title: s.metaTitle || s.title,
-    description: s.metaDescription || s.challenge?.slice(0, 160),
+    title,
+    description,
+    ...socialMetadata({
+      title: `${title} | Fix Your Gap`,
+      description,
+      path: `/success-stories/${encodeURIComponent(slug)}`,
+    }),
   };
 }
 

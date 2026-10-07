@@ -35,7 +35,7 @@ async function main() {
     hero_headline: 'Bright Ideas, Brilliant Results',
     hero_subheadline: 'Turn Likes into Loyalty. Discover Why Businesses Trust Us With Their Growth Journey.',
     hero_cta_primary: 'Get a Free Consultation',
-    hero_cta_secondary: 'See Our Work',
+    hero_cta_secondary: 'Explore Our Services',
     stat_1_value: '200+',
     stat_1_label: 'Happy Clients',
     stat_2_value: '$2M',

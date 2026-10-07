@@ -4,12 +4,18 @@ import { LeadCaptureCta } from "@/components/sections/LeadCaptureCta";
 import { ServicesCatalog } from "@/components/sections/ServicesCatalog";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { getPublishedServices, getServiceCategories } from "@/lib/public-data";
+import { socialMetadata } from "@/lib/social-metadata";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Our Services",
   description:
     "Explore our full suite of digital, technology, marketing, consulting, staffing and compliance services.",
+  ...socialMetadata({
+    title: "Our Services | Fix Your Gap",
+    description: "Explore our full suite of digital, technology, marketing, consulting, staffing and compliance services.",
+    path: "/services",
+  }),
 };
 
 async function getData() {

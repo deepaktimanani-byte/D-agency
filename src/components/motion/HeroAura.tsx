@@ -1,5 +1,3 @@
-"use client";
-
 /**
  * Hero backdrop: slow drifting colour fields in the brand ramp, crossed by a
  * light sweep. Replaces the earlier orbiting-icon version - literal icons

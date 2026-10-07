@@ -4,6 +4,7 @@ import { LeadCaptureCta } from "@/components/sections/LeadCaptureCta";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { StoryCard } from "@/components/ui/StoryCard";
 import { getPublishedStories, getServiceCategories } from "@/lib/public-data";
+import { socialMetadata } from "@/lib/social-metadata";
 import type { SuccessStory } from "@/types";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -11,6 +12,11 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Success Stories",
   description: "Real results for real businesses. Explore how we've helped clients grow revenue, traffic, and brand equity.",
+  ...socialMetadata({
+    title: "Success Stories | Fix Your Gap",
+    description: "Real results for real businesses. Explore how we've helped clients grow revenue, traffic, and brand equity.",
+    path: "/success-stories",
+  }),
 };
 
 const INDUSTRIES = ["SaaS", "E-Commerce", "Retail", "Healthcare", "Finance", "Real Estate", "Education"];

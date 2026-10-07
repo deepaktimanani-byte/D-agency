@@ -1,6 +1,5 @@
+import { SITE_URL } from "@/lib/site-url";
 import type { MetadataRoute } from "next";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fixyourgap.com";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -9,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/admin", "/api"],
     },
-    sitemap: new URL("/sitemap.xml", siteUrl).toString(),
+    sitemap: new URL("/sitemap.xml", SITE_URL).toString(),
   };
 }

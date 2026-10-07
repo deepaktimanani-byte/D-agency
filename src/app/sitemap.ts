@@ -1,14 +1,11 @@
-import {
-  getPublishedBlogPosts,
-  getPublishedServices,
-  getPublishedStories,
-} from "@/lib/public-data";
+import { prisma } from "@/lib/prisma";
+import { SITE_URL } from "@/lib/site-url";
 import type { MetadataRoute } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fixyourgap.com";
+export const dynamic = "force-dynamic";
 
 function absoluteUrl(path: string) {
-  return new URL(path, siteUrl).toString();
+  return new URL(path, SITE_URL).toString();
 }
 
 const staticPages = [
@@ -24,9 +21,21 @@ const staticPages = [
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [services, stories, posts] = await Promise.all([
-    getPublishedServices(),
-    getPublishedStories(),
-    getPublishedBlogPosts(),
+    prisma.service.findMany({
+      where: { status: "published" },
+      select: { slug: true, updatedAt: true },
+      orderBy: { slug: "asc" },
+    }),
+    prisma.successStory.findMany({
+      where: { status: "published" },
+      select: { slug: true, updatedAt: true },
+      orderBy: { slug: "asc" },
+    }),
+    prisma.blogPost.findMany({
+      where: { status: "published" },
+      select: { slug: true, updatedAt: true },
+      orderBy: { slug: "asc" },
+    }),
   ]);
 
   return [
@@ -35,19 +44,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: absoluteUrl(path),
     })),
     ...services.map((service) => ({
-      url: absoluteUrl(`/services/${service.slug}`),
+      url: absoluteUrl(`/services/${encodeURIComponent(service.slug)}`),
       lastModified: service.updatedAt,
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
     ...stories.map((story) => ({
-      url: absoluteUrl(`/success-stories/${story.slug}`),
+      url: absoluteUrl(`/success-stories/${encodeURIComponent(story.slug)}`),
       lastModified: story.updatedAt,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
     ...posts.map((post) => ({
-      url: absoluteUrl(`/blog/${post.slug}`),
+      url: absoluteUrl(`/blog/${encodeURIComponent(post.slug)}`),
       lastModified: post.updatedAt,
       changeFrequency: "monthly" as const,
       priority: 0.7,

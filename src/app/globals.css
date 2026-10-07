@@ -400,6 +400,10 @@ body {
   100%     { transform: translateX(320%) rotate(14deg); opacity: 0; }
 }
 
+@media (max-width: 639px) {
+  .hero-aura-blob, .hero-aura-sweep { animation: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-aura-blob, .hero-aura-sweep { animation: none !important; }
   .hero-aura-sweep { opacity: 0.5; }

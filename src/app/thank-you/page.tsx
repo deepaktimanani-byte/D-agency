@@ -1,11 +1,17 @@
 import { Button } from "@/components/ui/Button";
 import { CheckCircle2 } from "lucide-react";
 import type { Metadata } from "next";
+import { socialMetadata } from "@/lib/social-metadata";
 import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Thank You",
   description: "We've received your enquiry and will be in touch shortly.",
+  ...socialMetadata({
+    title: "Thank You | Fix Your Gap",
+    description: "We've received your enquiry and will be in touch shortly.",
+    path: "/thank-you",
+  }),
   robots: { index: false },
 };
 
